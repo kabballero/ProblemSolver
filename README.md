@@ -6,7 +6,7 @@ Siskos Konstantinos - el19887
 
 Aristomenis P. Koumpanakis - el19089
 
-Χρήστος Έξαρχος - el19039  
+Χρήστος Σέξαρχος - el19039  
 
 
   
