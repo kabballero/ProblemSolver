@@ -8,6 +8,8 @@ Aristomenis P. Koumpanakis - el19089
 
 Χρήστος Έξαρχος - el19039  
 
+![component diagram vpd](https://github.com/ntua/saas2024-11/assets/115151597/a07ba0c9-1933-4307-9c81-46b49dcb4493)
+
 
   
 Περιγραφή - οδηγίες
