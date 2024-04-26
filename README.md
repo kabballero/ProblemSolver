@@ -1,6 +1,8 @@
 # NTUA ECE SAAS 2024 PROJECT
   
-## TEAM (XX)
+## TEAM 11
+
+#Siskos Konstantinos - el19887
   
   
 Περιγραφή - οδηγίες
