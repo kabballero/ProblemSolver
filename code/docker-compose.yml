@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    ports:
+      - "15672:15672"  # Management interface
+      - "5672:5672"    # Application interface
+    networks:
+      - app-network
+
+  frontend:
+    build: 
+      context: ./frontend
+    ports: 
+      - "8080:80"
+    networks:
+      - app-network
+
+  solve_ortool_problem_service:
+    build:
+      context: ./solve_ORTool_problem_service
+    depends_on:
+      - rabbitmq
+      - frontend
+    networks:
+      - app-network
+    command: ["./wait-for-it.sh", "rabbitmq:5672", "--timeout=100", "--", "python", "main_program.py"]
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+
+  submit_new_problem_service:
+    build:
+      context: ./submit_new_problem_service
+    depends_on:
+      - rabbitmq
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    #command: ["./wait-for-it.sh", "rabbitmq:5672", "--timeout=100", "--", "node", "submit.js"]
+    command: "./wait-for-it.sh rabbitmq:5672 --timeout=100 -- node server.js"
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+
+
+networks:
+  app-network:
+    driver: bridge
