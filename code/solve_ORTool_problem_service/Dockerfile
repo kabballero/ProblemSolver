@@ -10,8 +10,8 @@ COPY . /app
 # Install required packages
 RUN pip install --no-cache-dir pika ortools
 
-# Expose the port the app runs on
-EXPOSE 5672
+# Expose the port the app runs on,no need??
+#EXPOSE 5672
 
 COPY wait-for-it.sh .
 RUN chmod +x wait-for-it.sh
