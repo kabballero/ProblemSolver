@@ -20,11 +20,24 @@ app.get('', (req,res)=>{
 
 app.get('/users', async(req,res)=>{
     try {
-        const userData = await UserModel.find();
+        const userData = await UserModel.find({});
         res.json(userData);
       } catch (error) {
         console.error('Error fetching users:', error);
         res.status(500).json({ error: 'Internal Server Error' });
       }
 })
-//});
+
+app.get('/sell/:id/:amount', async(req,res)=>{
+  try {
+      const userId = new mongoose.Types.ObjectId(req.params.id);
+      const amount = parseInt(req.params.amount);
+      const userData = await UserModel.find({_id: userId});
+      await UserModel.updateOne({ _id: userId }, { $inc: { credits: amount } });
+      const updatedUser = await UserModel.findById(userId);
+      res.json(updatedUser);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
