@@ -137,12 +137,12 @@ const responseQueue = 'response_queue';
 let channel = null;
 
 async function connectRabbitMQ() {
-    if (!channel) {
-        const connection = await amqp.connect('amqp://rabbitmq'); // Connect to RabbitMQ server
-        channel = await connection.createChannel(); // Create a channel
-        await channel.assertQueue(submit_problemQueue, { durable: false }); // Assert queues
-        await channel.assertQueue(responseQueue, { durable: false });
-    }
+    //if (!channel) {
+    const connection = await amqp.connect('amqp://localhost'); // Connect to RabbitMQ server
+    channel = await connection.createChannel(); // Create a channel
+    await channel.assertQueue(submit_problemQueue, { durable: false }); // Assert queues
+    await channel.assertQueue(responseQueue, { durable: false });
+    //}
 }
 
 async function sendProblemData(data) {
@@ -151,7 +151,7 @@ async function sendProblemData(data) {
     console.log("Sent problem data to the solver.");
 }
 
-async function listenForSolutions() {
+/*async function listenForSolutions() {
     await connectRabbitMQ();
     console.log("Awaiting responses...");
     channel.consume(responseQueue, message => {
@@ -160,6 +160,23 @@ async function listenForSolutions() {
         // Optionally close connection here if only expecting a single message
         // connection.close();
     });
+}*/
+
+async function listenForSolutions() {
+  await connectRabbitMQ();
+  console.log("Awaiting responses...");
+  return new Promise((resolve, reject) => {
+      channel.consume(responseQueue, message => {
+          //console.log("Received solution:", message.content.toString());
+          const content = message.content.toString();
+          //console.log(content)
+          channel.ack(message);
+          //console.log(content);
+          resolve(content);
+          // Optionally close connection here if only expecting a single message
+          channel.close();
+      });
+  });
 }
 
 module.exports = {
