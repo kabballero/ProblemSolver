@@ -1,11 +1,13 @@
 const express = require('express');
 const multer = require('multer');
+const cors = require('cors');
 const fs = require('fs');
 
 const bodyParser = require('body-parser');
 const submit = require('./submit'); // Import the RabbitMQ functions
 const app = express();
-const port = 3000;
+app.use(cors());
+const port = 3100;
 
 const upload = multer({ dest: 'uploads/' });
 app.use(express.json());
@@ -24,7 +26,6 @@ app.use(express.urlencoded({ extended: true }));
 app.post('/submit', upload.single('locationsFile'), async (req, res) => {
     const { num_vehicles, depot, max_distance } = req.body;  // Extract other form data
     let locations;
-
     if (req.file) {
         // If a file is uploaded, read and parse it
         try {
@@ -57,16 +58,39 @@ app.post('/submit', upload.single('locationsFile'), async (req, res) => {
         // Assume submit.sendProblemData is an async function you've defined elsewhere
         await submit.sendProblemData(problemData);
         res.send("Problem submitted successfully!");
-        try {
-            await submit.listenForSolutions();
+        /*try {
+            //await submit.listenForSolutions();
+            await submit.listenForSolutions().then(message => {
+                console.log("Received message:", message);
+                const answer = JSON.parse(message);
+                res.send(answer);
+            })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
         } catch (error) {
             console.error("Failed to start listening for solutions:", error);
-        }
+        }*/
     } catch (error) {
         console.error("Failed to send problem data:", error);
         res.status(500).send("Failed to submit problem.");
     }
 });
+
+app.get('/solution', async (req, res) => {
+    try {
+        //await submit.listenForSolutions();
+        await submit.listenForSolutions().then(message => {
+        console.log("Received message:", message);
+        const answer = JSON.parse(message);
+        res.send(answer);
+    })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+} catch (error) {
+    console.error("Failed to start listening for solutions:", error);
+}})
 
 // Start the server and immediately begin listening for solutions
 app.listen(port, async () => {
