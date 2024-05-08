@@ -1,7 +1,10 @@
 const express = require('express');
 const multer = require('multer');
 const cors = require('cors');
+const mongoose = require('mongoose');
 const fs = require('fs');
+const con =require('./database')
+const ProblemModel = require('./problem');
 
 const bodyParser = require('body-parser');
 const submit = require('./submit'); // Import the RabbitMQ functions
@@ -57,37 +60,40 @@ app.post('/submit', upload.single('locationsFile'), async (req, res) => {
     try {
         // Assume submit.sendProblemData is an async function you've defined elsewhere
         await submit.sendProblemData(problemData);
-        res.send("Problem submitted successfully!");
-        /*try {
-            //await submit.listenForSolutions();
-            await submit.listenForSolutions().then(message => {
-                console.log("Received message:", message);
-                const answer = JSON.parse(message);
-                res.send(answer);
-            })
-                .catch(error => {
-                    console.error("Error:", error);
-                });
+        try{
+            const newObjectId = new mongoose.Types.ObjectId();
+            const newProblemModel = new ProblemModel({
+                _id: newObjectId,
+                usersid: '663385e0aff12a03431cec8e',
+                problemsinput: problemData,
+                solution: []
+            });
+            newProblemModel.save()
+                .then(savedProblem => {
+                    console.log('Problem saved successfully:', savedProblem);
+                })
+                res.send(newObjectId);
         } catch (error) {
-            console.error("Failed to start listening for solutions:", error);
-        }*/
+            console.error("Failed to stote problem:", error);
+            res.status(500).send("Failed to stote problem.");
+        }
     } catch (error) {
         console.error("Failed to send problem data:", error);
         res.status(500).send("Failed to submit problem.");
     }
 });
 
-app.get('/solution', async (req, res) => {
+app.get('/solution/:problemsid', async (req, res) => {
     try {
         //await submit.listenForSolutions();
-        await submit.listenForSolutions().then(message => {
-        console.log("Received message:", message);
+        const message=await submit.listenForSolutions();
+        //console.log("Received message:", message);
         const answer = JSON.parse(message);
+        const problemsId =new mongoose.Types.ObjectId(req.params.problemsid.slice(1,-1));
+        const problemData = await ProblemModel.find({_id: problemsId});
+        await ProblemModel.updateOne({ _id: problemsId }, {solution: answer });
         res.send(answer);
-    })
-        .catch(error => {
-            console.error("Error:", error);
-        });
+        //console.log(answer);
 } catch (error) {
     console.error("Failed to start listening for solutions:", error);
 }})

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Solution from './solution'
 
 export default function Submit() {
     const [select, setSelect] = useState('cars');
@@ -22,7 +23,9 @@ function Cars() {
     const [depo, setDepo] = useState();
     const [max, setMax] = useState();
     const [file, setFile] = useState();
+    const [problemsid, setProblemsid] = useState();
     const [success, setSuccess] = useState(false);
+    const [showSolution, setShowSolution] = useState(false);
     async function handleClick() {
         const formData = new FormData();
         formData.append('locationsFile', file);
@@ -33,15 +36,16 @@ function Cars() {
             method: 'Post',
             body: formData
         }).then((response) => response.text()).catch((e) => { console.log(e.message) })
-        if(data==='Problem submitted successfully!'){setSuccess(true);}
+        if(data!==undefined){setSuccess(true);setProblemsid(data)}
         //console.log(data);
     }
     async function handleClick2(){
-        console.log('hello')
-        const data = await fetch(`http://localhost:3100/solution`)
+        const data = await fetch(`http://localhost:3100/solution/${problemsid}`)
         .then((response) => response.json()).catch((e) => { console.log(e.message) })
         console.log(data)
+        console.log(problemsid)
         setSuccess(false)
+        //setShowSolution(true)
     }
 
     return (
@@ -55,8 +59,8 @@ function Cars() {
             <div className='popup' style={{backgroundColor: "purple"}}>
                 <h1>Problem Submited</h1>
                 <button className='button' onClick={handleClick2}>okay</button>
-            </div>
-            }
+            </div>}
+            
         </div>
     )
 }
