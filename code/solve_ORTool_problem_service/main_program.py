@@ -25,7 +25,7 @@ def callback(ch, method, properties, body):
 
 def main():
     # Setup connection and channel
-    connection = pika.BlockingConnection(pika.ConnectionParameters('rabbitmq')) #localhost to run locally, rabbitmq to run in containers
+    connection = pika.BlockingConnection(pika.ConnectionParameters('localhost')) #localhost to run locally, rabbitmq to run in containers
     channel = connection.channel()
 
     # Declare the queue from which to consume

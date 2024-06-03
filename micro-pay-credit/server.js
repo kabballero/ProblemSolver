@@ -5,7 +5,7 @@ const mongoose=require('mongoose')
 const con =require('./database')
 const UserModel = require('./user');
 
-const port=9103;
+const port=9000;
 
 app.use(cors());
 //con.then(() => {

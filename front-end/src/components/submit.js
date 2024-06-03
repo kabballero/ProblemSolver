@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Solution from './solution'
 
-export default function Submit() {
+export default function Submit({changenotification,getProblemsid}) {
     const [select, setSelect] = useState('cars');
     console.log(select)
     return (
@@ -13,12 +13,12 @@ export default function Submit() {
                     <option key={'graphs'} value={'graphs'}>graphs</option>
                 </select>
             </div>
-            {select === 'cars' && <Cars />}
+            {select === 'cars' && <Cars changenotification={changenotification} getProblemsid={getProblemsid}/>}
         </div>
     )
 }
 
-function Cars() {
+function Cars({changenotification,getProblemsid}) {
     const [number, setNumber] = useState();
     const [depo, setDepo] = useState();
     const [max, setMax] = useState();
@@ -43,6 +43,12 @@ function Cars() {
         const data = await fetch(`http://localhost:3100/solution/${problemsid}`)
         .then((response) => response.json()).catch((e) => { console.log(e.message) })
         console.log(data)
+        if(data!==undefined) {
+            changenotification();
+            getProblemsid(problemsid);
+        }
+        else {
+            console.log('no')}
         console.log(problemsid)
         setSuccess(false)
         //setShowSolution(true)
