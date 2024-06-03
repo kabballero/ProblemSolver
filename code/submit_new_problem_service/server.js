@@ -54,7 +54,6 @@ app.post('/submit', upload.single('locationsFile'), async (req, res) => {
     //console.log(problemData);  // Log the received data to verify
 
     try {
-        // Assume submit.sendProblemData is an async function you've defined elsewhere
         await submit.sendProblemData(problemData);
         res.send("Problem submitted successfully!");
         try {

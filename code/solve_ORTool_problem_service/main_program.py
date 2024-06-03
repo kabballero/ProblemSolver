@@ -38,9 +38,11 @@ def main():
         auto_ack=False
     )
 
-    #print('Waiting for messages. To exit press CTRL+C')
+    print('Waiting for messages. To exit press CTRL+C')
     try:
+        print(1)
         channel.start_consuming()
+        print(2)
     except KeyboardInterrupt:
         channel.stop_consuming()
     connection.close()
