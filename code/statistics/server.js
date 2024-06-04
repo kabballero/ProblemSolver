@@ -174,6 +174,46 @@ app.get('/problem-details/:id', async (req, res) => {
   }
 });
 
+// data for chart: average time taken for each number of vehicles used by a user
+app.get('/user-solutions/:userId', async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    // Find all problems associated with the user
+    const problems = await Problem.find({ usersid: userId }).select('solution');
+    if (problems.length === 0) {
+      return res.status(404).json({ message: 'No problems found for this user' });
+    }
+
+    // Flatten the solutions from all problems into a single array
+    const solutions = problems.flatMap(problem => problem.solution);
+
+    if (solutions.length === 0) {
+      return res.status(404).json({ message: 'No solutions found for this user' });
+    }
+
+    // Group solutions by number of vehicles and calculate average time_taken
+    const groupedSolutions = solutions.reduce((acc, solution) => {
+      const numVehicles = solution.routes.length;
+      if (!acc[numVehicles]) {
+        acc[numVehicles] = { total_time: 0, count: 0 };
+      }
+      acc[numVehicles].total_time += solution.time_taken;
+      acc[numVehicles].count++;
+      return acc;
+    }, {});
+
+    // Calculate average time_taken for each number of vehicles
+    const averageTimes = Object.entries(groupedSolutions).map(([numVehicles, { total_time, count }]) => ({
+      vehicles: parseInt(numVehicles),
+      average_time_taken: total_time / count
+    }));
+
+    res.json(averageTimes);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching user solutions', error });
+  }
+});
+
 // endpoint that uses index.html to load time taken and chart
 app.get('/statistics', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
