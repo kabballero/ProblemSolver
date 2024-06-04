@@ -4,7 +4,8 @@ import '../css/mycss.css'
 export default function Solution({ problemsID, changenotification }) {
     const [answers, setAnswers] = useState();
     const [stops, setStops] = useState();
-    //changenotification();
+    const [cost, setCost] = useState();
+    const [paid, setPaid] = useState(false);
     async function fetchData(url) {
         var json = await fetch(url).then((response) => response.json());
         return json;
@@ -37,41 +38,63 @@ export default function Solution({ problemsID, changenotification }) {
         fetchData(`http://localhost:3100/getsolution/${problemsID}`)
             .then((res) => {
                 setAnswers(res)
+                const c = parseInt((res[0].solution[0].time_taken) * 10, 10);
+                setCost(c)
                 console.log(res)
             })
             .catch((e) => {
                 console.log(e.message)
             })
     }, [])
+    async function handleClick(){
+        fetchData(`http://localhost:9000/pay/6633860eaff12a03431cec8f/${cost}`)
+            .then((res) => {
+                if(res.error=='Not enought credits'){
+                    alert('You have not enough credits')
+                }
+                else{
+                    setPaid(true);
+                    changenotification(false);
+            }
+            })
+            .catch((e) => {
+                console.log(e.message)
+            })
+    }
     return (
         <div>
-            {answers?.length > 0 && stops?.length > 0 ? (
+            {answers?.length > 0 && stops?.length > 0 && cost ? (
                 <div className='container'>
-                    <h1>Here is the solution for your problem</h1>
-                    <h1>Max Route Distance: {answers[0].solution[0].max_route_distance}</h1>
-                    <table border="1">
-                        <thead>
-                            <tr>
-                                {answers[0].solution[0].routes?.map((car) => (
-                                    <th key={car.vehicle_id}>routes car {car.vehicle_id} followed</th>
-                                ))}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {stops?.map((row, rowindex) => (
-                                <tr key={rowindex}>
-                                    {row?.map((stop, colindex) => {
-                                        if (stop !== -1) {
-                                            return <td key={colindex}>{stop}</td>;
-                                        } else {
-                                            return <td key={colindex}>-</td>;
-                                        }
-                                    })}
+                    <div style={ !paid ? {WebkitFilter: 'blur(8px)'} :{display:'flex',flexDirection:'column',alignItems:'center'}}>
+                        <h1>Here is the solution for your problem</h1>
+                        <h1>Max Route Distance: {answers[0].solution[0].max_route_distance}</h1>
+                        <table border="1">
+                            <thead>
+                                <tr>
+                                    {answers[0].solution[0].routes?.map((car) => (
+                                        <th key={car.vehicle_id}>routes car {car.vehicle_id} followed</th>
+                                    ))}
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    <button onClick={changenotification}>click</button>
+                            </thead>
+                            <tbody>
+                                {stops?.map((row, rowindex) => (
+                                    <tr key={rowindex}>
+                                        {row?.map((stop, colindex) => {
+                                            if (stop !== -1) {
+                                                return <td key={colindex}>{stop}</td>;
+                                            } else {
+                                                return <td key={colindex}>-</td>;
+                                            }
+                                        })}
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    {!paid && <div className='popup'>
+                        <h1>In order to see your solution you have to pay {cost} credits</h1>
+                        <button className='button' onClick={handleClick}>pay</button>
+                    </div>}
                 </div>
             ) : (
                 <h1>nothing here</h1>

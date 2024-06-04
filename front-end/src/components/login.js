@@ -19,8 +19,8 @@ export default function Login() {
         setSubmit(value2);
         setSolution(value3);
     }
-    function changenotification(){
-        (notification==true ? setNotiffication(false): setNotiffication(true))
+    function changenotification(value){
+        setNotiffication(value)
     }
     return (
         <div>
