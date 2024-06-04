@@ -7,9 +7,9 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const width = 600; // width of the chart
-const height = 400; // height of the chart
-const chartJSNodeCanvas = new ChartJSNodeCanvas({ width, height });
+const chartJSNodeCanvas = new ChartJSNodeCanvas({ width: 600, height: 400 });
+
+app.use(express.static('public')); // Serve static files from the "public" directory
 
 // Connect to the database
 dbConnection.then(() => {
@@ -18,6 +18,7 @@ dbConnection.then(() => {
   console.error('Error connecting to the database:', error);
 });
 
+// endpoint where i can see all documents in the collection of the problem database
 app.get('/problems', async (req, res) => {
   try {
     const problems = await Problem.find();
@@ -27,6 +28,8 @@ app.get('/problems', async (req, res) => {
   }
 });
 
+
+// endpoint where i can see the time needed for solution of a specific problem, run like this: ?id=YOUR_PROBLEM_ID
 app.get('/problems/:id', async (req, res) => {
   const problemId = req.params.id;
   try {
@@ -47,7 +50,9 @@ app.get('/problems/:id', async (req, res) => {
   }
 });
 
-app.get('/chart', async (req, res) => {
+
+// dummy chart endpoint, comment out the code below
+/*app.get('/chart', async (req, res) => {
     try {
       const problems = await Problem.find();
       const labels = problems.map((_, index) => index + 1);
@@ -81,7 +86,9 @@ app.get('/chart', async (req, res) => {
       res.status(500).json({ message: 'Error generating chart', error });
     }
   });
-  
+  */
+
+  // endpoint that gives a graph routes number - ascending order graph 
   app.get('/chart/:id', async (req, res) => {
     try {
         // Assuming you have some logic to fetch the problem by id
@@ -126,8 +133,52 @@ app.get('/chart', async (req, res) => {
 });
 
 
+// endpoint that returns time taken and chart data (routes-ascending) order for a specific problem  
+app.get('/problem-details/:id', async (req, res) => {
+  const problemId = req.params.id;
 
-  // Start the server
+  try {
+    // Fetch the problem by ID
+    const problem = await Problem.findById(problemId).select('solution');
+    if (!problem) {
+      return res.status(404).json({ message: 'Problem not found' });
+    }
+
+    const solution = problem.solution;
+    if (solution.length === 0) {
+      return res.status(404).json({ message: 'Problem has not been solved yet' });
+    }
+
+    // Extract the time taken from the solution
+    const timeTaken = solution.map(s => s.time_taken);
+
+    // Extract routes from the solution for the chart
+    const routes = solution[0].routes;
+    if (routes.length === 0) {
+      return res.status(404).json({ message: 'No routes available for the problem' });
+    }
+
+    // Prepare data for the chart
+    const data = routes[0].route.map((point, index) => ({ x: index, y: point }));
+
+    // Return time taken and chart data 
+    // need to add cost, submission date, and change the chartData to actual data
+    const response = {
+      timeTaken: timeTaken,
+      chartData: data
+    };
+
+    res.json(response);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching problem details', error });
+  }
+});
+
+// endpoint that uses index.html to load time taken and chart
+app.get('/statistics', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+}); 
+// Start the server
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
