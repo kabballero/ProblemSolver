@@ -33,12 +33,13 @@ function Cars({ changenotification, getProblemsid }) {
         formData.append('num_vehicles', number);
         formData.append('depot', depo);
         formData.append('max_distance', max);
+        formData.append('userID', localStorage.getItem('userId'));
         const data = await fetch(`http://localhost:3100/submit`, {
             method: 'Post',
             body: formData
         }).then((response) => response.text()).catch((e) => { console.log(e.message) })
         if (data !== undefined) { setSuccess(true); setProblemsid(data) }
-        //console.log(data);
+        console.log(localStorage.getItem('userId'));
     }
     async function handleClick2() {
         setSuccess(false)

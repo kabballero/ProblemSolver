@@ -1,8 +1,9 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function Buy() {
-    const [credits,setCredits]=useState();
-    const [id,setId]=useState();
+    const [credits, setCredits] = useState();
+    const [id, setId] = useState();
+    const [number, setNumber] = useState();
     async function fetchData(url) {
         var json = await fetch(url).then((response) => response.json());
         return json;
@@ -15,15 +16,19 @@ export default function Buy() {
         }
         getData();
     }, [])
-    async function handleClick(amount){
-        console.log(amount);
-        await fetch(`http://localhost:9103/sell/${id}/${amount}`).then((response) => response.json());
+    async function handleClick(e) {
+        e.preventDefault();
+        await fetch(`http://localhost:9103/sell/${id}/${number}`)
+        .then((response) => response.json())
+        .then(window.location.reload());
     }
-    return(
+    return (
         <div className='container'>
-        <h1>you have: {credits} credits</h1>
-        <button onClick={handleClick.bind(null,10)} className='button'>buy 10</button>
-        <button onClick={handleClick.bind(null,20)} className='button'>buy 20</button>
+            <form className='container1' onSubmit={handleClick}>
+                <h1>you have {credits} credits</h1>
+                <input required type="text" className="input1" onChange={(e) => setNumber(e.target.value)} placeholder='number of credits' />
+                <button className='button'>buy</button>
+            </form>
         </div>
     )
 }

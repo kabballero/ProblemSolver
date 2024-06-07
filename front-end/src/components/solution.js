@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import useSound from 'use-sound';
+import audio from '../audio.mp3';
 import '../css/mycss.css'
 
 export default function Solution({ problemsID, changenotification }) {
@@ -6,6 +8,7 @@ export default function Solution({ problemsID, changenotification }) {
     const [stops, setStops] = useState();
     const [cost, setCost] = useState();
     const [paid, setPaid] = useState(false);
+    const [play] = useSound(audio);
     async function fetchData(url) {
         var json = await fetch(url).then((response) => response.json());
         return json;
@@ -46,50 +49,76 @@ export default function Solution({ problemsID, changenotification }) {
                 console.log(e.message)
             })
     }, [])
-    async function handleClick(){
+    useEffect(() => {
+        if (paid) {
+          play();
+        }
+      }, [paid, play]);
+    async function handleClick() {
         fetchData(`http://localhost:9000/pay/6633860eaff12a03431cec8f/${cost}`)
             .then((res) => {
-                if(res.error=='Not enought credits'){
+                if (res.error == 'Not enought credits') {
                     alert('You have not enough credits')
                 }
-                else{
+                else {
                     setPaid(true);
+                    //play();
                     changenotification(false);
-            }
+                }
             })
             .catch((e) => {
                 console.log(e.message)
             })
     }
     return (
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
             {answers?.length > 0 && stops?.length > 0 && cost ? (
                 <div className='container'>
-                    <div style={ !paid ? {WebkitFilter: 'blur(8px)'} :{display:'flex',flexDirection:'column',alignItems:'center'}}>
+                    <div style={!paid ? { WebkitFilter: 'blur(8px)' } : { display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <h1>Here is the solution for your problem</h1>
                         <h1>Max Route Distance: {answers[0].solution[0].max_route_distance}</h1>
-                        <table border="1">
-                            <thead>
-                                <tr>
-                                    {answers[0].solution[0].routes?.map((car) => (
-                                        <th key={car.vehicle_id}>routes car {car.vehicle_id} followed</th>
-                                    ))}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {stops?.map((row, rowindex) => (
-                                    <tr key={rowindex}>
-                                        {row?.map((stop, colindex) => {
-                                            if (stop !== -1) {
-                                                return <td key={colindex}>{stop}</td>;
-                                            } else {
-                                                return <td key={colindex}>-</td>;
-                                            }
-                                        })}
+                        <div className='solution-container'>
+                            <table border="1">
+                                <thead>
+                                    <tr>
+                                        {answers[0].solution[0].routes?.map((car) => (
+                                            <th key={car.vehicle_id}>routes car {car.vehicle_id} followed</th>
+                                        ))}
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {stops?.map((row, rowindex) => (
+                                        <tr key={rowindex}>
+                                            {row?.map((stop, colindex) => {
+                                                if (stop !== -1) {
+                                                    return <td key={colindex}>{stop}</td>;
+                                                } else {
+                                                    return <td key={colindex}>-</td>;
+                                                }
+                                            })}
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className='solution-container'>
+                            <table border="1">
+                                <thead>
+                                    <tr>
+                                        {answers[0].solution[0].routes?.map((car) => (
+                                            <th key={car.vehicle_id}>max distance car {car.vehicle_id} made</th>
+                                        ))}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        {answers[0].solution[0].routes?.map((distance, index) => (
+                                            <td key={index}>{distance.distance}</td>
+                                        ))}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     {!paid && <div className='popup'>
                         <h1>In order to see your solution you have to pay {cost} credits</h1>

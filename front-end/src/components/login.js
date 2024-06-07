@@ -1,42 +1,76 @@
-import React, {useState} from 'react';
-import Submit from './submit';
-import Buy from './buy';
-import Navbar from './navbar';
-import Solution from './solution';
-import '../css/mycss.css'
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import '../css/Login.css';
 
-export default function Login() {
-    const [buy,setBuy]=useState(false);
-    const [notification, setNotiffication] = useState(false);
-    const [problemsID,setProblemsID]=useState();
-    const [submit,setSubmit]=useState(false);
-    const [solution,setSolution]=useState(false);
-    function getProblemsid(value){
-        setProblemsID(value);
-    }
-    function handleChangeValues(value1,value2,value3){
-        setBuy(value1);
-        setSubmit(value2);
-        setSolution(value3);
-    }
-    function changenotification(value){
-        setNotiffication(value)
-    }
+function Login() {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
+    const navigate = useNavigate();
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await fetch('http://localhost:3001/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
+            const data = await response.json();
+            if (data.success) {
+                console.log(data.credits);
+                localStorage.setItem('userId', data.user_id); 
+                localStorage.setItem('username', data.username);
+                localStorage.setItem('credits', data.credits);
+
+                setMessage('Login successful!');
+                setTimeout(() => {
+                    navigate('/user');  // Redirect to dashboard
+                }, 1000);
+            } else {
+                setMessage(data.message || 'Invalid username or password');
+            }
+        } catch (error) {
+            setMessage('Error logging in');
+        }
+    };
+
     return (
-        <div>
-            <Navbar changeValues={handleChangeValues} notification={notification}/>
-            {!buy && !submit && !solution && <div>
-            <div className='h2'>
-                <h1>metadata</h1>
-                {Array(100).fill().map((_, index) => (
-                    <h3 key={index}>hello</h3>
-                ))}
+        <div className="login-container">
+            <h2>Login</h2>
+            <form id="loginForm" onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="username">Username:</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        value={username} 
+                        onChange={(e) => setUsername(e.target.value)} 
+                        required 
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password:</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        value={password} 
+                        onChange={(e) => setPassword(e.target.value)} 
+                        required 
+                    />
+                </div>
+                <button type="submit">Login</button>
+            </form>
+            {message && <div id="message" className="message">{message}</div>}
+            <div className="create-account-link">
+                <Link to="/register">Create an account</Link>
             </div>
-            <h1 className='h3'>metadata2</h1>
-        </div>}
-        {buy && <Buy/>}
-        {solution && <Solution changenotification={changenotification} problemsID={problemsID}/>}
-        {submit && <Submit changenotification={changenotification} getProblemsid={getProblemsid}/>}
         </div>
-    )
+    );
 }
+
+export default Login;

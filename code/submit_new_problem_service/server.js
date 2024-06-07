@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.post('/submit', upload.single('locationsFile'), async (req, res) => {
-    const { num_vehicles, depot, max_distance } = req.body;  // Extract other form data
+    const { num_vehicles, depot, max_distance, userID } = req.body;  // Extract other form data
     let locations;
     if (req.file) {
         // If a file is uploaded, read and parse it
@@ -64,7 +64,7 @@ app.post('/submit', upload.single('locationsFile'), async (req, res) => {
             const newObjectId = new mongoose.Types.ObjectId();
             const newProblemModel = new ProblemModel({
                 _id: newObjectId,
-                usersid: '663385e0aff12a03431cec8e',
+                usersid: userID,
                 problemsinput: problemData,
                 solution: []
             });
@@ -96,6 +96,15 @@ app.get('/solution/:problemsid', async (req, res) => {
         //console.log(answer);
 } catch (error) {
     console.error("Failed to start listening for solutions:", error);
+}})
+
+app.get('/getsolution/:problemsid', async (req, res) => {
+    try {
+        const problemsId =new mongoose.Types.ObjectId(req.params.problemsid.slice(1,-1));
+        const problemData = await ProblemModel.find({_id: problemsId});
+        res.send(problemData);
+} catch (error) {
+    console.error("Failed get the data:", error);
 }})
 
 // Start the server and immediately begin listening for solutions

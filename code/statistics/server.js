@@ -6,7 +6,7 @@ const dbConnection = require('./database');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 4000;
 const chartJSNodeCanvas = new ChartJSNodeCanvas({ width: 600, height: 400 });
 
 app.use(express.static('public')); // Serve static files from the "public" directory

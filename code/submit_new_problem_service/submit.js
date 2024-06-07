@@ -166,8 +166,9 @@ async function listenForSolutions() {
   await connectRabbitMQ();
   console.log("Awaiting responses...");
   return new Promise((resolve, reject) => {
+    try{
       channel.consume(responseQueue, message => {
-          //console.log("Received solution:", message.content.toString());
+          console.log("Received solution:", message.content.toString());
           const content = message.content.toString();
           //console.log(content)
           channel.ack(message);
@@ -175,7 +176,8 @@ async function listenForSolutions() {
           resolve(content);
           // Optionally close connection here if only expecting a single message
           channel.close();
-      });
+      });}
+      catch (error){reject (error)}
   });
 }
 
