@@ -42,6 +42,7 @@ def create_data_model(locations, num_vehicles, depot):
     return data
 
 def return_solution(data, manager, routing, solution, time_taken):
+    print('in return solution')
     """Returns solution as a dictionary."""
     results = {
         'objective': solution.ObjectiveValue(),
@@ -70,7 +71,7 @@ def return_solution(data, manager, routing, solution, time_taken):
 
 
 def main_solver(locations, num_vehicles, depot, max_distance):
-    #print(max_distance)
+    print(max_distance)
     # Instantiate the data problem.
     data = create_data_model(locations, num_vehicles, depot)
     # Create the routing index manager.
@@ -111,11 +112,14 @@ def main_solver(locations, num_vehicles, depot, max_distance):
     search_parameters.first_solution_strategy = (
         routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC
     )
-    start_time = time.time()
+    print('starting time')
+    #start_time = time.time()
     # Solve the problem.
-    solution = routing.SolveWithParameters(search_parameters)
-    end_time = time.time()
-    time_taken = end_time - start_time
+    solution =routing.SolveWithParameters(search_parameters)
+    #end_time = time.time()
+    print('finisging time')
+    sys.stdout.flush() 
+    time_taken = 0 #end_time - start_time
     if solution:
         result_dict = return_solution(data, manager, routing, solution, time_taken)
     else:
