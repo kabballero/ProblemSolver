@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import useSound from 'use-sound';
-import audio from '../audio.mp3';
 import '../css/mycss.css'
 
 export default function Solution({ problemsID, changenotification }) {
@@ -8,7 +6,6 @@ export default function Solution({ problemsID, changenotification }) {
     const [stops, setStops] = useState();
     const [cost, setCost] = useState(-1);
     const [paid, setPaid] = useState(false);
-    const [play] = useSound(audio);
     async function fetchData(url) {
         var json = await fetch(url).then((response) => response.json());
         return json;
