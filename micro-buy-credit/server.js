@@ -20,8 +20,8 @@ app.get('', (req,res)=>{
 
 app.get('/users', async(req,res)=>{
     try {
-        const userId = new mongoose.Types.ObjectId('663385e0aff12a03431cec8e');
-        const userData = await UserModel.find({_id: userId});
+        //const userId = new mongoose.Types.ObjectId('663385e0aff12a03431cec8e');
+        const userData = await UserModel.find();
         res.json(userData);
       } catch (error) {
         console.error('Error fetching users:', error);

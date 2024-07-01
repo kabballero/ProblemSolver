@@ -6,7 +6,7 @@ import '../css/mycss.css'
 export default function Solution({ problemsID, changenotification }) {
     const [answers, setAnswers] = useState();
     const [stops, setStops] = useState();
-    const [cost, setCost] = useState();
+    const [cost, setCost] = useState(-1);
     const [paid, setPaid] = useState(false);
     const [play] = useSound(audio);
     async function fetchData(url) {
@@ -49,13 +49,13 @@ export default function Solution({ problemsID, changenotification }) {
                 console.log(e.message)
             })
     }, [])
-    useEffect(() => {
+    /*useEffect(() => {
         if (paid) {
           play();
         }
-      }, [paid, play]);
+      }, [paid, play]);*/
     async function handleClick() {
-        fetchData(`http://localhost:9000/pay/6633860eaff12a03431cec8f/${cost}`)
+        fetchData(`http://localhost:9000/pay/${localStorage.getItem('userId')}/${cost}`)
             .then((res) => {
                 if (res.error == 'Not enought credits') {
                     alert('You have not enough credits')
@@ -63,6 +63,9 @@ export default function Solution({ problemsID, changenotification }) {
                 else {
                     setPaid(true);
                     //play();
+                    const storedCredits = localStorage.getItem('credits');
+                    const updatedCredits = storedCredits - parseInt(cost, 10);
+                    localStorage.setItem('credits', updatedCredits);
                     changenotification(false);
                 }
             })
@@ -72,7 +75,7 @@ export default function Solution({ problemsID, changenotification }) {
     }
     return (
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-            {answers?.length > 0 && stops?.length > 0 && cost ? (
+            {answers?.length > 0 && stops?.length > 0 && cost>=0 ? (
                 <div className='container'>
                     <div style={!paid ? { WebkitFilter: 'blur(8px)' } : { display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <h1>Here is the solution for your problem</h1>

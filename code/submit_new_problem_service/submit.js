@@ -134,15 +134,30 @@ const amqp = require('amqplib');
 
 const submit_problemQueue = 'submit_problem_queue';
 const responseQueue = 'response_queue';
+let connection;
 let channel = null;
+const RECONNECT_INTERVAL = 5000; // 5 seconds
 
 async function connectRabbitMQ() {
     //if (!channel) {
-    const connection = await amqp.connect('amqp://localhost'); // Connect to RabbitMQ server
+    const connection = await amqp.connect('amqp://localhost', {
+      heartbeat: 600 // Set the heartbeat interval to 10 seconds
+  }); // Connect to RabbitMQ server
+    connection.on('error', handleConnectionError);
+    connection.on('close', handleConnectionClose);
     channel = await connection.createChannel(); // Create a channel
-    await channel.assertQueue(submit_problemQueue, { durable: false }); // Assert queues
-    await channel.assertQueue(responseQueue, { durable: false });
+    await channel.assertQueue(submit_problemQueue, { durable: true }); // Assert queues
+    await channel.assertQueue(responseQueue, { durable: true });
     //}
+}
+
+function handleConnectionError(err) {
+  console.error('Connection error:', err);
+}
+
+function handleConnectionClose() {
+  console.error('Connection closed, reconnecting...');
+  setTimeout(connectRabbitMQ, RECONNECT_INTERVAL);
 }
 
 async function sendProblemData(data) {

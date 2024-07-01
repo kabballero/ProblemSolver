@@ -113,13 +113,13 @@ def main_solver(locations, num_vehicles, depot, max_distance):
         routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC
     )
     print('starting time')
-    #start_time = time.time()
+    start_time = time.time()
     # Solve the problem.
     solution =routing.SolveWithParameters(search_parameters)
-    #end_time = time.time()
+    end_time = time.time()
     print('finisging time')
     sys.stdout.flush() 
-    time_taken = 0 #end_time - start_time
+    time_taken = end_time - start_time
     if solution:
         result_dict = return_solution(data, manager, routing, solution, time_taken)
     else:

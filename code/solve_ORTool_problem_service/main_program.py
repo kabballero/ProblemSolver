@@ -29,7 +29,6 @@ def callback(ch, method, properties, body):
             body=json.dumps(result)
         )
         print("Message published to response_queue")
-        sys.stdout.flush() 
 
         ch.basic_ack(delivery_tag=method.delivery_tag)
         print('acknwoledged')
@@ -39,7 +38,12 @@ def callback(ch, method, properties, body):
 
 def main():
     # Setup connection and channel
-    connection = pika.BlockingConnection(pika.ConnectionParameters('localhost')) #localhost to run locally, rabbitmq to run in containers
+    connection_params = pika.ConnectionParameters(
+        host='localhost',
+        heartbeat=600  # Increase the heartbeat timeout
+    )
+    #connection = pika.BlockingConnection(pika.ConnectionParameters('localhost')) #localhost to run locally, rabbitmq to run in containers
+    connection = pika.BlockingConnection(connection_params)
     channel = connection.channel()
 
     # Declare the queue from which to consume

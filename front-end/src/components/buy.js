@@ -8,19 +8,34 @@ export default function Buy() {
         var json = await fetch(url).then((response) => response.json());
         return json;
     }
-    useEffect(() => {
+    /*useEffect(() => {
         async function getData() {
             const data = await fetchData(`http://localhost:9103/users`)
             setCredits(data[0].credits);
             setId(data[0]._id)
         }
         getData();
-    }, [])
+    }, [])*/
+    useEffect(() => {
+        const storedCredits = localStorage.getItem('credits');
+        const storedId = localStorage.getItem('userId');
+
+        if (storedCredits) {
+            setCredits(parseInt(storedCredits, 10));
+        }
+        if (storedId) {
+            setId(storedId);
+        }
+    }, []);
     async function handleClick(e) {
         e.preventDefault();
         await fetch(`http://localhost:9103/sell/${id}/${number}`)
         .then((response) => response.json())
-        .then(window.location.reload());
+        .then((data) => {
+            const updatedCredits = credits + parseInt(number, 10);
+            localStorage.setItem('credits', updatedCredits);
+            setCredits(updatedCredits);
+        });
     }
     return (
         <div className='container'>
