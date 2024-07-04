@@ -11,9 +11,47 @@ services:
 
   frontend:
     build: 
-      context: ./frontend
+      context: ./front-end
     ports: 
-      - "8080:80"
+      - "3000:3000"
+    networks:
+      - app-network
+    depends_on:
+      - login_micro
+      - micro-buy-credit
+      - micro-pay-credit
+      - submit_new_problem_service
+      - history_service
+
+  login_micro:
+    build:
+      context: ./login_micro
+    ports:
+      - "3001:3001"
+    networks:
+      - app-network
+
+  micro-buy-credit:
+    build:
+      context: ./micro-buy-credit
+    ports:
+      - "9103:9103"
+    networks:
+      - app-network
+
+  micro-pay-credit:
+    build:
+      context: ./micro-pay-credit
+    ports:
+      - "9000:9000"
+    networks:
+      - app-network
+
+  history_service:
+    build:
+      context: ./history_service
+    ports:
+      - "3010:3010"
     networks:
       - app-network
 
@@ -22,10 +60,10 @@ services:
       context: ./solve_ORTool_problem_service
     depends_on:
       - rabbitmq
-      - frontend
     networks:
       - app-network
     command: ["./wait-for-it.sh", "rabbitmq:5672", "--timeout=100", "--", "python", "main_program.py"]
+    #command: ["python", "main_program.py"]
     environment:
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_PORT=5672
@@ -36,11 +74,11 @@ services:
     depends_on:
       - rabbitmq
     ports:
-      - "3000:3000"
+      - "3100:3100"
     networks:
       - app-network
-    #command: ["./wait-for-it.sh", "rabbitmq:5672", "--timeout=100", "--", "node", "submit.js"]
     command: "./wait-for-it.sh rabbitmq:5672 --timeout=100 -- node server.js"
+    #command: "node server.js"
     environment:
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_PORT=5672

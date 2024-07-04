@@ -4,6 +4,7 @@ import Buy from './buy';
 import Navbar from './navbar';
 import Solution from './solution';
 import Statistics from './statistics';
+import History from './history'; 
 import '../css/mycss.css'
 
 export default function User() {
@@ -13,7 +14,8 @@ export default function User() {
     const [submit,setSubmit]=useState(false);
     const [solution,setSolution]=useState(false);
     const [statistics,setStatistics]=useState(false);
-    const [history,setHistory]=useState(true);
+    const [history,setHistory]=useState(false);
+
     function getProblemsid(value){
         setProblemsID(value);
     }
@@ -30,19 +32,11 @@ export default function User() {
     return (
         <div>
             <Navbar changeValues={handleChangeValues} notification={notification}/>
-            {history && <div>
-            <div className='h2'>
-                <h1>metadata</h1>
-                {Array(100).fill().map((_, index) => (
-                    <h3 key={index}>hello</h3>
-                ))}
-            </div>
-            <h1 className='h3'>metadata2</h1>
-        </div>}
-        {buy && <Buy/>}
-        {solution && <Solution changenotification={changenotification} problemsID={problemsID}/>}
-        {submit && <Submit changenotification={changenotification} getProblemsid={getProblemsid}/>}
-        {statistics && <Statistics/>}
+            {history && <History/>}
+            {buy && <Buy/>}
+            {solution && <Solution changenotification={changenotification} problemsID={problemsID}/>}
+            {submit && <Submit changenotification={changenotification} getProblemsid={getProblemsid}/>}
+            {statistics && <Statistics/>}
         </div>
     )
 }

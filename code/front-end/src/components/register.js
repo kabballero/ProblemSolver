@@ -9,7 +9,7 @@ function Registration() {
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
-    const registrationUrl = 'http://localhost:3001/register'; // Update with your backend server URL
+    const registrationUrl = 'http://localhost:3001/register'; // Update with your backend server URL !!!!!!!!! localhost or login_micro
 
     const register = async (event) => {
         event.preventDefault();

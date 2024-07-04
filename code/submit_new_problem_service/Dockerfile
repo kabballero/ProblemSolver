@@ -1,22 +1,22 @@
-# Use an official Node.js runtime as a parent image
-FROM node:14
+FROM node:15
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json (if available)
+# Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
-# Install project dependencies
+# Install dependencies
 RUN npm install
 
-# Bundle app source inside Docker image
+# Copy the rest of the application code to the working directory
 COPY . .
 
-# Expose port for RabbitMQ and node app (if any)
-EXPOSE 3000
-COPY wait-for-it.sh .
-RUN chmod +x wait-for-it.sh
+# Expose the port the app runs on
+EXPOSE 3100
 
-# Command to run the app
+#COPY wait-for-it.sh .
+#RUN chmod +x wait-for-it.sh
+# Command to run the application
 CMD ["node", "server.js"]
+

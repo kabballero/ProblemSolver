@@ -11,7 +11,7 @@ function Login() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch('http://localhost:3001/login', {
+            const response = await fetch('http://localhost:3001/login', { //!!!!!! localhost or login_micro
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -33,6 +33,7 @@ function Login() {
                 setMessage(data.message || 'Invalid username or password');
             }
         } catch (error) {
+            console.error('Error details:', error);
             setMessage('Error logging in');
         }
     };

@@ -39,11 +39,11 @@ def callback(ch, method, properties, body):
 def main():
     # Setup connection and channel
     connection_params = pika.ConnectionParameters(
-        host='localhost',
+        host='rabbitmq', #localhost to run locally, rabbitmq to run in containers
         heartbeat=600  # Increase the heartbeat timeout
     )
-    #connection = pika.BlockingConnection(pika.ConnectionParameters('localhost')) #localhost to run locally, rabbitmq to run in containers
-    connection = pika.BlockingConnection(connection_params)
+    connection = pika.BlockingConnection(pika.ConnectionParameters('rabbitmq')) #localhost to run locally, rabbitmq to run in containers
+    #connection = pika.BlockingConnection(connection_params)
     channel = connection.channel()
 
     # Declare the queue from which to consume
