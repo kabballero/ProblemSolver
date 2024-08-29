@@ -10,6 +10,7 @@ COPY package*.json ./
 # Install project dependencies
 RUN npm install
 
+
 # Bundle app source inside Docker image
 COPY . .
 

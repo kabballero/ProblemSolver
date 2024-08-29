@@ -1,0 +1,20 @@
+{
+  "name": "statistics",
+  "version": "1.0.0",
+  "description": "statistics package",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "mclaughlin"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.12.3",
+    "chartjs-node-canvas": "^3.0.0"
+  }
+}
