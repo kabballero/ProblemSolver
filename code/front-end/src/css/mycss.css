@@ -160,5 +160,22 @@ body{
     max-width: 90vw;
     box-sizing: border-box;
 }
-
-
+  @media (max-width: 1090px) {
+    .navbar {
+        justify-content: space-between; 
+        column-gap: 10px; 
+        padding: 0px; 
+        flex-wrap: nowrap;
+    }
+    .navbar h1{
+        font-size: 3vw;
+        gap: 5px;
+        white-space: nowrap;
+    }
+    .navbar .solveme{
+        display: none;
+    }
+    .bell{
+        font-size: 3vw;
+    }
+  }
