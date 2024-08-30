@@ -11,7 +11,7 @@ function Login() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch('http://localhost:3001/login', { //!!!!!! localhost or login_micro
+            const response = await fetch('http://localhost:3001/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -20,7 +20,6 @@ function Login() {
             });
             const data = await response.json();
             if (data.success) {
-                console.log(data.credits);
                 localStorage.setItem('userId', data.user_id); 
                 localStorage.setItem('username', data.username);
                 localStorage.setItem('credits', data.credits);
@@ -36,6 +35,10 @@ function Login() {
             console.error('Error details:', error);
             setMessage('Error logging in');
         }
+    };
+
+    const handleGoogleLogin = () => {
+        console.log("Google login button clicked");
     };
 
     return (
@@ -69,6 +72,14 @@ function Login() {
             {message && <div id="message" className="message">{message}</div>}
             <div className="create-account-link">
                 <Link to="/register">Create an account</Link>
+            </div>
+            <div className="separator">
+                <span>or</span>
+            </div>
+            <div className="google-login">
+                <button onClick={handleGoogleLogin} className="google-login-button">
+                    Login with Google
+                </button>
             </div>
         </div>
     );

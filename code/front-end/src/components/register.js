@@ -87,7 +87,7 @@ function Registration() {
             </form>
             <div id="message" className="message">{message}</div>
             <div className="create-account-link">
-                <a href="/login">Already have an account? Login here</a>
+                <a href="/">Already have an account? Login here</a>
             </div>
         </div>
     );
