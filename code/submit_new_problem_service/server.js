@@ -109,6 +109,6 @@ app.get('/getsolution/:problemsid', async (req, res) => {
 
 // Start the server and immediately begin listening for solutions
 app.listen(port, async () => {
-    console.log(`Server running on http://localhost:${port}`);
+    console.log(`Server running on http://submit_new_problem_service:${port}`);
     
 });

@@ -34,7 +34,7 @@ function Cars({ changenotification, getProblemsid }) {
         formData.append('depot', depo);
         formData.append('max_distance', max);
         formData.append('userID', localStorage.getItem('userId'));
-        const data = await fetch(`http://localhost:3100/submit`, {
+        const data = await fetch(`http://localhost:3100/submit`, { //!!!!!! localhost or submit_new_problem_service
             method: 'Post',
             body: formData
         }).then((response) => response.text()).catch((e) => { console.log(e.message) })
@@ -43,7 +43,7 @@ function Cars({ changenotification, getProblemsid }) {
     }
     async function handleClick2() {
         setSuccess(false)
-        const data = await fetch(`http://localhost:3100/solution/${problemsid}`)
+        const data = await fetch(`http://localhost:3100/solution/${problemsid}`) //!!!!!!!!
             .then((response) => response.json()).catch((e) => { console.log(e.message) })
         console.log(data)
         if (data !== undefined) {

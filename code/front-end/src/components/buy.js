@@ -4,6 +4,7 @@ export default function Buy() {
     const [credits, setCredits] = useState();
     const [id, setId] = useState();
     const [number, setNumber] = useState();
+    
     async function fetchData(url) {
         var json = await fetch(url).then((response) => response.json());
         return json;
@@ -29,7 +30,7 @@ export default function Buy() {
     }, []);
     async function handleClick(e) {
         e.preventDefault();
-        await fetch(`http://localhost:9103/sell/${id}/${number}`)
+        await fetch(`http://localhost:9103/sell/${id}/${number}`) //!!!!!!!!!!!! localhost to see on browser, micro-buy-credit else
         .then((response) => response.json())
         .then((data) => {
             const updatedCredits = credits + parseInt(number, 10);

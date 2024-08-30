@@ -20,7 +20,6 @@ function Login() {
             });
             const data = await response.json();
             if (data.success) {
-                console.log(data.credits);
                 localStorage.setItem('userId', data.user_id); 
                 localStorage.setItem('username', data.username);
                 localStorage.setItem('credits', data.credits);
@@ -33,8 +32,13 @@ function Login() {
                 setMessage(data.message || 'Invalid username or password');
             }
         } catch (error) {
+            console.error('Error details:', error);
             setMessage('Error logging in');
         }
+    };
+
+    const handleGoogleLogin = () => {
+        console.log("Google login button clicked");
     };
 
     return (
@@ -68,6 +72,14 @@ function Login() {
             {message && <div id="message" className="message">{message}</div>}
             <div className="create-account-link">
                 <Link to="/register">Create an account</Link>
+            </div>
+            <div className="separator">
+                <span>or</span>
+            </div>
+            <div className="google-login">
+                <button onClick={handleGoogleLogin} className="google-login-button">
+                    Login with Google
+                </button>
             </div>
         </div>
     );

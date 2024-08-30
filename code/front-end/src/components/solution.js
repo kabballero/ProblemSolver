@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import useSound from 'use-sound';
-import audio from '../audio.mp3';
 import '../css/mycss.css'
 
 export default function Solution({ problemsID, changenotification }) {
@@ -8,7 +6,6 @@ export default function Solution({ problemsID, changenotification }) {
     const [stops, setStops] = useState();
     const [cost, setCost] = useState(-1);
     const [paid, setPaid] = useState(false);
-    const [play] = useSound(audio);
     async function fetchData(url) {
         var json = await fetch(url).then((response) => response.json());
         return json;
@@ -38,7 +35,7 @@ export default function Solution({ problemsID, changenotification }) {
         }
     }, [answers])
     useEffect(() => {
-        fetchData(`http://localhost:3100/getsolution/${problemsID}`)
+        fetchData(`http://localhost:3100/getsolution/${problemsID}`) //localhost or submit_new_problems_service
             .then((res) => {
                 setAnswers(res)
                 const c = parseInt((res[0].solution[0].time_taken) * 10, 10);
@@ -55,7 +52,7 @@ export default function Solution({ problemsID, changenotification }) {
         }
       }, [paid, play]);*/
     async function handleClick() {
-        fetchData(`http://localhost:9000/pay/${localStorage.getItem('userId')}/${cost}`)
+        fetchData(`http://localhost:9000/pay/${localStorage.getItem('userId')}/${cost}`) //!!!!!! localhost or micro-pay-credit
             .then((res) => {
                 if (res.error == 'Not enought credits') {
                     alert('You have not enough credits')

@@ -1,4 +1,3 @@
-# Use an official Python runtime as a parent image
 FROM python:3.10-slim
 
 # Set the working directory in the container
@@ -13,7 +12,7 @@ RUN pip install --no-cache-dir pika ortools
 # Expose the port the app runs on,no need??
 #EXPOSE 5672
 
-COPY wait-for-it.sh .
-RUN chmod +x wait-for-it.sh
+#COPY wait-for-it.sh .
+#RUN chmod +x wait-for-it.sh
 # Run main_program.py when the container launches
 CMD ["python", "main_program.py"]

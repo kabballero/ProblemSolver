@@ -1,6 +1,7 @@
 const mongoose=require('mongoose')
 
 const uri = "mongodb+srv://exarxos928:12345@cluster0.s7y42um.mongodb.net/toulou2?retryWrites=true&w=majority&appName=Cluster0";
+//const uri = "mongodb://mongodb:27017/toulou2";
 
 const con = mongoose.connect(uri, {});
 
