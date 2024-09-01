@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Problem Details</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Add styles for the canvas */
+    #myChart {
+      max-width: 600px;
+      max-height: 400px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Problem Details</h1>
+  <div>
+    <h2>Time Taken</h2>
+    <ul id="time-taken-list"></ul>
+  </div>
+  <div>
+    <h2>Chart</h2>
+    <canvas id="myChart" width="600" height="400"></canvas>
+  </div>
+  <script>
+    function getProblemIdFromURL() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get('id');
+    }
+
+    async function fetchProblemDetails(problemId) {
+      const response = await fetch(`/problem-details/${problemId}`);
+      const data = await response.json();
+      return data;
+    }
+
+    function renderTimeTaken(timeTaken) {
+      const timeTakenList = document.getElementById('time-taken-list');
+      timeTakenList.innerHTML = '';
+      timeTaken.forEach(time => {
+        const listItem = document.createElement('li');
+        listItem.textContent = time;
+        timeTakenList.appendChild(listItem);
+      });
+    }
+
+    function renderChart(chartData) {
+      const ctx = document.getElementById('myChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          datasets: [{
+            label: 'Routes',
+            data: chartData,
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1,
+            fill: false
+          }]
+        },
+        options: {
+          scales: {
+            x: {
+              type: 'linear',
+              position: 'bottom'
+            },
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const problemId = getProblemIdFromURL(); // Get the problem ID from the URL
+      if (problemId) {
+        const data = await fetchProblemDetails(problemId);
+        renderTimeTaken(data.timeTaken);
+        renderChart(data.chartData);
+      } else {
+        console.error('No problem ID found in URL');
+      }
+    });
+  </script>
+</body>
+</html>
