@@ -31,6 +31,14 @@ services:
     networks:
       - app-network
 
+  statistics_ms:
+    build:
+      context: ./statistics_ms
+    ports:
+      - "4000:4000"
+    networks:
+      - app-network
+
   buy_ms:
     build:
       context: ./buy_ms

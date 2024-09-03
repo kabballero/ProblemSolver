@@ -4,8 +4,10 @@ const { ChartJSNodeCanvas } = require('chartjs-node-canvas');
 const Problem = require('./problem');
 const dbConnection = require('./database');
 const path = require('path');
+const cors = require('cors');
 
 const app = express();
+app.use(cors());
 const PORT = 4000;
 const chartJSNodeCanvas = new ChartJSNodeCanvas({ width: 600, height: 400 });
 
