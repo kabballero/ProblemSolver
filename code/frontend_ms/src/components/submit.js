@@ -14,6 +14,7 @@ export default function Submit({ changenotification, getProblemsid }) {
                 </select>
             </div>
             {select === 'cars' && <Cars changenotification={changenotification} getProblemsid={getProblemsid} />}
+            {select === 'graphs' && <Graphs />} 
         </div>
     )
 }
@@ -34,7 +35,7 @@ function Cars({ changenotification, getProblemsid }) {
         formData.append('depot', depo);
         formData.append('max_distance', max);
         formData.append('userID', localStorage.getItem('userId'));
-        const data = await fetch(`http://localhost:3100/submit`, { //!!!!!! localhost or submit_new_problem_service
+        const data = await fetch(`http://localhost:3100/submit`, { //!!!!!! localhost or submit_ms
             method: 'Post',
             body: formData
         }).then((response) => response.text()).catch((e) => { console.log(e.message) })
@@ -55,7 +56,7 @@ function Cars({ changenotification, getProblemsid }) {
         }
         console.log(problemsid)
     }
-
+  
     return (
         <div>
             <form onSubmit={handleClick} className='container1'>
@@ -74,5 +75,24 @@ function Cars({ changenotification, getProblemsid }) {
 
         </div>
     )
+}
+function Graphs() {
+    return (
+        <div className='container1' style={{ padding: '10px' }}>
+            <img
+                src="/image1.jpg"
+                alt="Graph"
+                style={{
+                    width: '100%',  
+                    height: 'auto', 
+                    maxHeight: 'calc(100vh - 40px)',  
+                    margin: '20px auto',  
+                    display: 'block', 
+                    objectFit: 'contain', 
+                    borderRadius: '5px'  
+                }}
+            />
+        </div>
+    );
 }
 
