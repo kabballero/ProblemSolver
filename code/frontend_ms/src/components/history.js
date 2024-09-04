@@ -58,7 +58,7 @@ function UserHistory() {
                     ))}
                 </ul>
             ) : (
-                !message && <div>No problems found.</div>
+                !message && <div>LOADING...</div>
             )}
         </div>
     );

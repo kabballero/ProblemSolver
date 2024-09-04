@@ -3,7 +3,7 @@ FROM node:16
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
-
+#RUN npm init -y
 # Copy package.json and package-lock.json (if available)
 COPY package*.json ./
 

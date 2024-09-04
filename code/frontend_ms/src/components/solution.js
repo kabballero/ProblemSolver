@@ -52,7 +52,7 @@ export default function Solution({ problemsID, changenotification }) {
         }
       }, [paid, play]);*/
     async function handleClick() {
-        fetchData(`http://localhost:9000/pay/${localStorage.getItem('userId')}/${cost}`) //!!!!!! localhost or micro-pay-credit
+        fetchData(`http://localhost:9000/pay/${localStorage.getItem('userId')}/${cost}`) //!!!!!! localhost or pay_ms
             .then((res) => {
                 if (res.error == 'Not enought credits') {
                     alert('You have not enough credits')

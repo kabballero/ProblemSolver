@@ -1,0 +1,22 @@
+{
+  "name": "package",
+  "version": "1.0.0",
+  "description": "package for login",
+  "main": "server.js",
+  "scripts": {
+    "test": "do test",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "sex",
+    "and",
+    "drugs"
+  ],
+  "author": "me",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "body-parser": "^1.19.0",
+    "mongodb": "^4.1.0"
+  }
+}
