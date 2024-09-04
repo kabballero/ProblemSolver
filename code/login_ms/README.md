@@ -1,5 +1,4 @@
-# MICROSERVICE
+# Login microservice.
 
-## (name)
 
-(description)
+It handles the login and register functions.
