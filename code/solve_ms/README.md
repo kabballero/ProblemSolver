@@ -1,5 +1,3 @@
-# MICROSERVICE
+# buy_microservice
 
-## (name)
-
-(description)
+The user buys credits for his account.
