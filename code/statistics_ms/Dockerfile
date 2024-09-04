@@ -1,20 +1,8 @@
-# Use an official Node.js runtime as a parent image
-FROM node:18-alpine
+# Use Node.js 16 on Debian/Ubuntu as a parent image
+FROM node:16
 
 # Set the working directory
 WORKDIR /usr/src/app
-
-# Install Python, build tools, and dependencies required for canvas
-RUN apk add --update --no-cache \
-    make \
-    g++ \
-    jpeg-dev \
-    cairo-dev \
-    giflib-dev \
-    pango-dev \
-    libtool \
-    autoconf \
-    automake
 
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
