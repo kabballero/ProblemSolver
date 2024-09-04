@@ -2,16 +2,15 @@
   
 ## TEAM 11
 
-Siskos Konstantinos - el19887
+Run like this:
 
-Aristomenis P. Koumpanakis - el19089
+Start the docker engine -> Move to /code directory -> Run docker-compose down (to remove previous container/image data) -> Run docker-compose up --build 
 
-Χρήστος Έξαρχος - el19039  
+Frontend shows up at localhost:3000
 
-![component diagram vpd](https://github.com/ntua/saas2024-11/assets/115151597/a07ba0c9-1933-4307-9c81-46b49dcb4493)
+Rabbitmq management is running on localhost:15672 (credentials: guest, guest).
 
 
-  
-Περιγραφή - οδηγίες
-  
-Περιέχονται φάκελοι για 15 microservices. Ο αριθμός είναι εντελώς ενδεικτικός. Δημιουργήστε ακριβώς όσα απαιτούνται από τη λύση σας.
+Important: Make sure the wait-for-it.sh scripts are in LF encoding and not CRLF encoding. You can check it the editor options of the file. 
+To make sure script encoding is not converted from LF to CRLF when running git clone from Windows, run git config --global core.autocrlf false.
+
