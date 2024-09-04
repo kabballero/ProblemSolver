@@ -52,6 +52,71 @@ app.get('/problems/:id', async (req, res) => {
   }
 });
 
+//finds all problems and their solution time for a specific user
+app.get('/problems_time/:user_id', async (req, res) => {
+  const userId = req.params.user_id;
+  try {
+    // Find all problems associated with the user
+    const problems = await Problem.find({ usersid: userId });
+
+    if (problems.length === 0) {
+      return res.status(404).json({ message: 'No problems found for this user' });
+    }
+
+    // Grouping logic: Using a map to group by the five parameters
+    const groupedProblems = {};
+
+    problems.forEach(problem => {
+
+      if ((Array.isArray(problem.solution) && problem.solution.length === 1 && problem.solution[0] === "No solution found. Try different parameters.") || (problem.solution.length === 0)) {
+        return;   
+      }
+      console.log(problem.solution);
+
+      const problemId = problem._id.toString();
+      problem.problemsinput.forEach(input => {
+        const key = `${problemId}-${input.locations.length}-${input.num_vehicles}-${input.depot}-${input.max_distance}-${JSON.stringify(input.locations)}`;
+
+        if (!groupedProblems[key]) {
+          groupedProblems[key] = {
+            problem_id: problemId,
+            num_locations: input.locations.length,
+            num_vehicles: input.num_vehicles,
+            depot: input.depot,
+            max_distance: input.max_distance,
+            locations: input.locations,
+            time_taken: []
+          };
+        }
+
+        problem.solution.forEach(solution => {
+          groupedProblems[key].time_taken.push(solution.time_taken);
+        });
+      });
+    });
+
+    // Prepare the response
+    const response = Object.values(groupedProblems).map(group => {
+      const randomTimeTaken = group.time_taken[Math.floor(Math.random() * group.time_taken.length)];
+      return {
+        problem_id: group.problem_id,
+        num_locations: group.num_locations,
+        num_vehicles: group.num_vehicles,
+        depot: group.depot,
+        max_distance: group.max_distance,
+        locations: group.locations,
+        time_taken: randomTimeTaken
+      };
+    });
+
+    res.json(response);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching problems', error });
+  }
+});
+
+
+
 
 // dummy chart endpoint, comment out the code below
 /*app.get('/chart', async (req, res) => {
@@ -93,14 +158,25 @@ app.get('/problems/:id', async (req, res) => {
   // endpoint that gives a graph routes number - ascending order graph 
   app.get('/chart/:id', async (req, res) => {
     try {
-        // Assuming you have some logic to fetch the problem by id
+        // Fetch the problem by ID
         const problem = await Problem.findById(req.params.id);
+
+        if (!problem || !problem.solution || problem.solution.length === 0) {
+            return res.status(404).json({ message: 'No solution found for this problem' });
+        }
 
         // Extract routes from the problem's solution
         const routes = problem.solution[0].routes;
 
+        if (!routes || routes.length === 0 || !routes[0].route || routes[0].route.length === 0) {
+            return res.status(404).json({ message: 'No route data available to plot' });
+        }
+
+        // Log the route data to ensure it's correct
+        console.log('Routes data:', routes[0].route);
+
         // Prepare data for the chart
-        const data = routes[0].route.map((point, index) => [index, point]);
+        const data = routes[0].route.map((point, index) => ({ x: index, y: point }));
 
         const configuration = {
             type: 'line',
@@ -126,13 +202,16 @@ app.get('/problems/:id', async (req, res) => {
             }
         };
 
+        // Render the chart to a buffer
         const image = await chartJSNodeCanvas.renderToBuffer(configuration);
         res.set('Content-Type', 'image/png');
         res.send(image);
     } catch (error) {
+        console.error('Error generating chart:', error);
         res.status(500).json({ message: 'Error generating chart', error });
     }
 });
+
 
 
 // endpoint that returns time taken and chart data (routes-ascending) order for a specific problem  
