@@ -78,21 +78,25 @@ function Cars({ changenotification, getProblemsid }) {
 }
 function Graphs() {
     return (
-        <div className='container1' style={{ padding: '10px' }}>
+        <div className='container1' style={{ padding: 0, margin: 0 }}>
             <img
                 src="/image1.jpg"
                 alt="Graph"
                 style={{
-                    width: '100%',  
+                    width: '80%',  // Adjusts width of the image
                     height: 'auto', 
-                    maxHeight: 'calc(100vh - 40px)',  
-                    margin: '20px auto',  
+                    maxHeight: '80vh',  // Adjusts max height of the image
+                    margin: '0 auto',  // Centers the image without extra margin
                     display: 'block', 
                     objectFit: 'contain', 
-                    borderRadius: '5px'  
+                    borderRadius: '5px',  
+                    backgroundColor: 'transparent'  // Ensures the background is transparent
                 }}
             />
         </div>
     );
 }
+
+
+
 
