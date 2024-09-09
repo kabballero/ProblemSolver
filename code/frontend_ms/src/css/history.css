@@ -13,7 +13,7 @@
     list-style-type: none;
     display: flex;
     flex-direction: row;
-    justify-content: left;
+    justify-content: space-evenly;
     flex-wrap: wrap;
 }
 
