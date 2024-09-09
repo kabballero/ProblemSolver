@@ -160,7 +160,17 @@ body{
     max-width: 90vw;
     box-sizing: border-box;
 }
-  @media (max-width: 1090px) {
+.logout-button{
+    background-color: #a11b1b;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+   
+}
+.logout-button:hover{
+    background-color: #751313;
+}
+  @media (max-width: 1190px) {
     .navbar {
         justify-content: space-between; 
         column-gap: 10px; 

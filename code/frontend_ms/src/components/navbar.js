@@ -31,7 +31,7 @@ export default function Navbar({changeValues,notification=false}) {
                 <h1 style={{cursor: 'pointer'}} onClick={values2}>submit problem</h1>
                 <h1 style={{cursor: 'pointer'}} onClick={values4}>statistics</h1>
                 <h1 style={{cursor: 'pointer'}} onClick={values5}>history</h1>
-                <button onClick={handleClick}>logout</button>
+                <button className='logout-button' onClick={handleClick}>logout</button>
                 <div className='bell' >
                     <span onClick={values3} style={!notification ? {cursor: 'not-allowed'}:{}}>🔔</span>
                     {notification && <span className="badge"></span>}

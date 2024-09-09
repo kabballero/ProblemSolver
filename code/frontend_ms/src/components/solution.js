@@ -72,7 +72,7 @@ export default function Solution({ problemsID, changenotification }) {
     }
     return (
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-            {answers?.length > 0 && stops?.length > 0 && cost>=0 ? (
+            {answers?.length > 0 && stops?.length > 0 && cost >= 0 ? (
                 <div className='container'>
                     <div style={!paid ? { WebkitFilter: 'blur(8px)' } : { display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <h1>Here is the solution for your problem</h1>

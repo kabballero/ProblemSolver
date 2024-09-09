@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 export default function Buy() {
-    const [credits, setCredits] = useState();
+    const [credits, setCredits] = useState(-1);
     const [id, setId] = useState();
     const [number, setNumber] = useState();
 
@@ -12,7 +12,8 @@ export default function Buy() {
     useEffect(() => {
         async function getData() {
             const data = await fetchData(`http://localhost:3001/user/${localStorage.getItem('userId')}`)
-            setCredits(data[0].credit);
+            setCredits(data.user.credits);
+            console.log(data.user.credits)
         }
         getData();
     }, [])
@@ -39,7 +40,7 @@ export default function Buy() {
     }
     return (
         <div>
-            {credits?.length > 0 ? (
+            {credits !=-1 ? (
                 <div className='container'>
                     <form className='container1' onSubmit={handleClick}>
                         <h1>you have {credits} credits</h1>
