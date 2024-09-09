@@ -36,7 +36,7 @@ export default function Navbar({changeValues,notification=false}) {
                     <span onClick={values3} style={!notification ? {cursor: 'not-allowed'}:{}}>🔔</span>
                     {notification && <span className="badge"></span>}
                 </div>
-                <h1 className='solveme'>SOLVEME</h1>
+                <h1 className='solveme'>solveME</h1>
             </div>
             )
         }
