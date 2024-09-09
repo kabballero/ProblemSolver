@@ -37,7 +37,6 @@ function Cars({ changenotification, getProblemsid }) {
         formData.append('max_distance', max);
         formData.append('userID', localStorage.getItem('userId'));
         const data = await fetch(`http://localhost:3100/submit`, { //!!!!!! localhost or submit_ms
-        const data = await fetch(`http://localhost:3100/submit`, { //!!!!!! localhost or submit_ms
             method: 'Post',
             body: formData
         }).then((response) => response.text()).catch((e) => { console.log(e.message) })
