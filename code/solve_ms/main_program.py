@@ -42,8 +42,8 @@ def main():
         host='rabbitmq', #localhost to run locally, rabbitmq to run in containers
         heartbeat=600  # Increase the heartbeat timeout
     )
-    connection = pika.BlockingConnection(pika.ConnectionParameters('rabbitmq')) #localhost to run locally, rabbitmq to run in containers
-    #connection = pika.BlockingConnection(connection_params)
+
+    connection = pika.BlockingConnection(connection_params) 
     channel = connection.channel()
 
     # Declare the queue from which to consume
@@ -65,7 +65,8 @@ def main():
         time.sleep(RETRY_INTERVAL)
     except KeyboardInterrupt:
         channel.stop_consuming()
-    connection.close()
+    if connection.is_open:
+        connection.close()
 
 if __name__ == "__main__":
     main()
