@@ -99,6 +99,7 @@ export default function Admin() {
                     {problems.map((problem) => (
                         <div key={problem._id} className="problem-item">
                             <div><strong>Date: </strong> {new Date(problem.date).toLocaleString()}</div>
+                            <div><strong>username: </strong>{problem.username}</div>
                             <div><strong>number of locations: </strong>{problem.problemsinput[0].locations.length}</div>
                             <button className={`locations-button ${locations && solutionID === problem._id ? 'active' : ''}`} onClick={handleClick2.bind(null, problem)}>view locations</button>
                             {locations && solutionID === problem._id && <ViewLocations problem={solutionInput} />}

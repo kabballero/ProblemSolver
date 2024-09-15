@@ -31,13 +31,13 @@ app.get('/problemsID/:problemsid', async (req, res) => {
 
 app.get('/problemsUsername/:username/:num_vehicles/:max_distance/:depot/:locations/:solved', async (req, res) => {
     try {
-        const query={};
+        const query = {};
         if (req.params.username !== 'undefined') {
             const user = await User.findOne({ username: req.params.username });
             if (!user) {
                 return res.status(404).send('User not found');
             }
-            query['usersid']= user._id.toString();
+            query['usersid'] = user._id.toString();
         }
         //console.log(userID)
         if (req.params.num_vehicles !== 'undefined') {
@@ -49,18 +49,33 @@ app.get('/problemsUsername/:username/:num_vehicles/:max_distance/:depot/:locatio
         if (req.params.depot !== 'undefined') {
             query['problemsinput.depot'] = req.params.depot;
         }
-        if (req.params.locations!== 'undefined') {
+        if (req.params.locations !== 'undefined') {
             query['problemsinput.locations'] = { $size: parseInt(req.params.locations) };
         }
-        if(req.params.solved==1){
-            query['solution'] = {$ne: []}
+        if (req.params.solved == 1) {
+            query['solution'] = { $ne: [] }
         }
-        if(req.params.solved==0){
-            query['solution'] = {$size: 0}
+        if (req.params.solved == 0) {
+            query['solution'] = { $size: 0 }
         }
         const problemData = await Problem.find(query)
+        /*const users = await Promise.all(
+            problemData.map(async (problem) => {
+                return await Problem.findOne({ _id: problem.usersid }, { username: 1, _id: 0 });
+            })
+        );*/
+        const enhancedProblemData = await Promise.all(
+            problemData.map(async (problem) => {
+                const userID = new mongoose.Types.ObjectId(String(problem.usersid));
+                const user = await User.findOne({ _id: userID }, { username: 1, _id: 0 });
+                return {
+                    ...problem._doc,  
+                    username: user?.username || 'Unknown',  
+                };
+            })
+        );
         console.log(query)
-        res.send(problemData);
+        res.send(enhancedProblemData);
     } catch (error) {
         res.status(500).send(error);
     }
@@ -68,7 +83,7 @@ app.get('/problemsUsername/:username/:num_vehicles/:max_distance/:depot/:locatio
 
 app.get('/users', async (req, res) => {
     try {
-        const users = await User.find({},{username: 1,_id: 0});
+        const users = await User.find({}, { username: 1, _id: 0 });
         res.send(users);
     } catch (error) {
         res.status(500).send('error in finding users');
