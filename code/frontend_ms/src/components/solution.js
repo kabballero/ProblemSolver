@@ -6,6 +6,7 @@ export default function Solution({ problemsID, changenotification }) {
     const [stops, setStops] = useState();
     const [cost, setCost] = useState(-1);
     const [paid, setPaid] = useState(false);
+    const [noSolustionFound,setNoSolustionFound]=useState(false);
     async function fetchData(url) {
         var json = await fetch(url).then((response) => response.json());
         return json;
@@ -27,7 +28,7 @@ export default function Solution({ problemsID, changenotification }) {
         return transposed;
     }
     useEffect(() => {
-        if (answers?.length > 0) {
+        if (answers?.length > 0 && !noSolustionFound) {
             const param = answers[0]?.solution[0].routes;
             const s = getRoutes(param);
             setStops(s);
@@ -38,9 +39,17 @@ export default function Solution({ problemsID, changenotification }) {
         fetchData(`http://localhost:3100/getsolution/${problemsID}`) //localhost or submit_new_problems_service
             .then((res) => {
                 setAnswers(res)
-                const c = parseInt((res[0].solution[0].time_taken) * 10, 10);
-                setCost(c)
-                console.log(res)
+                console.log(res[0].solution[0])
+                if(res[0].solution[0]==='No solution found. Try different parameters.'){
+                    setNoSolustionFound(true);
+                    changenotification(false);
+                    console.log('No solution found. Try different parameters.')
+                }
+                else{
+                    const c = parseInt((res[0].solution[0].time_taken) * 10, 10);
+                    setCost(c)
+                    console.log(res)
+                }
             })
             .catch((e) => {
                 console.log(e.message)
@@ -72,7 +81,7 @@ export default function Solution({ problemsID, changenotification }) {
     }
     return (
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-            {answers?.length > 0 && stops?.length > 0 && cost >= 0 ? (
+            {!noSolustionFound && answers?.length > 0 && stops?.length > 0 && cost >= 0 && (
                 <div className='container'>
                     <div style={!paid ? { WebkitFilter: 'blur(8px)' } : { display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <h1>Here is the solution for your problem</h1>
@@ -125,9 +134,17 @@ export default function Solution({ problemsID, changenotification }) {
                         <button className='button' onClick={handleClick}>pay</button>
                     </div>}
                 </div>
-            ) : (
-                <h1>nothing here</h1>
             )}
+            {noSolustionFound && answers!==undefined &&
+            <div>
+                <h1>No solution found. Try different parameters.</h1>
+            </div>
+            }
+            {!noSolustionFound && answers===undefined && 
+            <div>
+                <h1>loading...</h1>
+            </div>
+            }
         </div>
     )
 }

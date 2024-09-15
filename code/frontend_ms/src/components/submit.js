@@ -15,7 +15,6 @@ export default function Submit({ changenotification, getProblemsid }) {
             </div>
             {select === 'cars' && <Cars changenotification={changenotification} getProblemsid={getProblemsid} />}
             {select === 'graphs' && <Graphs />} 
-            {select === 'graphs' && <Graphs />} 
         </div>
     )
 }
@@ -51,9 +50,6 @@ function Cars({ changenotification, getProblemsid }) {
         if (data !== undefined) {
             changenotification(true);
             getProblemsid(problemsid);
-        }
-        else {
-            console.log('no')
         }
         console.log(problemsid)
     }

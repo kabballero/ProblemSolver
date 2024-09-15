@@ -92,7 +92,12 @@ app.get('/solution/:problemsid', async (req, res) => {
         const problemsId =new mongoose.Types.ObjectId(req.params.problemsid.slice(1,-1));
         const problemData = await ProblemModel.find({_id: problemsId});
         await ProblemModel.updateOne({ _id: problemsId }, {solution: answer });
-        res.send(answer);
+        //console.log(answer);
+        if(answer==='No solution found. Try different parameters.'){
+            res.status(403).send({message: 'No solution found. Try different parameters.'})
+        }
+        else 
+            res.send(answer);
         //console.log(answer);
 } catch (error) {
     console.error("Failed to start listening for solutions:", error);

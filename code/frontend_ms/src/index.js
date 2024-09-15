@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from './App'
 import User from './components/user'
-import Submit from './components/submit'
+import Admin from './components/admin'
 import Login from './components/login'
 import Registration from './components/register';
 const container = document.getElementById('root');
@@ -23,8 +23,8 @@ const router = createBrowserRouter([
     element: <Registration />,
   },
   {
-    path: '/submit',
-    element: <Submit />,
+    path: '/admin',
+    element: <Admin />,
   }
 ]);
 

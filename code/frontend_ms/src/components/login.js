@@ -21,14 +21,22 @@ function Login() {
             });
             const data = await response.json();
             if (data.success) {
-                localStorage.setItem('userId', data.user_id); 
-                localStorage.setItem('username', data.username);
-                localStorage.setItem('credits', data.credits);
+                if (data.username === 'admin') {
+                    setMessage('Login successful!');
+                    setTimeout(() => {
+                        navigate('/admin');  // Redirect to dashboard
+                    }, 1000);
+                }
+                else {
+                    localStorage.setItem('userId', data.user_id);
+                    localStorage.setItem('username', data.username);
+                    localStorage.setItem('credits', data.credits);
 
-                setMessage('Login successful!');
-                setTimeout(() => {
-                    navigate('/user');  // Redirect to dashboard
-                }, 1000);
+                    setMessage('Login successful!');
+                    setTimeout(() => {
+                        navigate('/user');  // Redirect to dashboard
+                    }, 1000);
+                }
             } else {
                 setMessage(data.message || 'Invalid username or password');
             }
@@ -40,7 +48,7 @@ function Login() {
 
     const handleGoogleSuccess = async (response) => {
         console.log("Google login success response: ", response);
-    
+
         try {
             const res = await fetch('http://localhost:3001/google-login', {
                 method: 'POST',
@@ -51,12 +59,12 @@ function Login() {
             });
             const data = await res.json();
             console.log("Response from backend: ", data);
-    
+
             if (data.success) {
-                localStorage.setItem('userId', data.user_id); 
+                localStorage.setItem('userId', data.user_id);
                 localStorage.setItem('username', data.username);
                 localStorage.setItem('credits', data.credits);
-    
+
                 setMessage('Login successful!');
                 setTimeout(() => {
                     navigate('/user');  // Redirect to dashboard
@@ -69,8 +77,8 @@ function Login() {
             setMessage('Error with Google login');
         }
     };
-    
-    
+
+
     const handleGoogleFailure = (error) => {
         console.error('Google Sign-In Error:', error);
         setMessage('Google login failed');
@@ -83,24 +91,24 @@ function Login() {
                 <form id="loginForm" onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="username">Username:</label>
-                        <input 
-                            type="text" 
-                            id="username" 
-                            name="username" 
-                            value={username} 
-                            onChange={(e) => setUsername(e.target.value)} 
-                            required 
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
                         />
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Password:</label>
-                        <input 
-                            type="password" 
-                            id="password" 
-                            name="password" 
-                            value={password} 
-                            onChange={(e) => setPassword(e.target.value)} 
-                            required 
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
                         />
                     </div>
                     <button type="submit">Login</button>

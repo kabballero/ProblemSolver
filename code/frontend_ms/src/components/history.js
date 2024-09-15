@@ -79,17 +79,17 @@ export default function UserHistory() {
                         <div key={problem._id} className="problem-item">
                             <div><strong>Date: </strong> {new Date(problem.date).toLocaleString()}</div>
                             <div><strong>number of locations: </strong>{problem.problemsinput[0].locations.length}</div>
-                            <button className={`locations-button ${locations && solutionID==problem._id ? 'active' : ''}`} onClick={handleClick2.bind(null,problem)}>view locations</button>
-                            {locations && solutionID==problem._id && <ViewLocations problem={solutionInput}/>}
+                            <button className={`locations-button ${locations && solutionID===problem._id ? 'active' : ''}`} onClick={handleClick2.bind(null,problem)}>view locations</button>
+                            {locations && solutionID===problem._id && <ViewLocations problem={solutionInput}/>}
                             <div><strong>number of vehicles: </strong>{problem.problemsinput[0].num_vehicles}</div>
                             <div><strong>max distance: </strong>{problem.problemsinput[0].max_distance}</div>
-                            <button className={`solution-button ${solution && solutionID==problem._id ? 'active' : ''}`} onClick={handleClick.bind(null,problem)}>view solution</button>
-                            {solution && solutionID==problem._id && <ViewSolution problem={solutionInput}/>}
+                            <button className={`solution-button ${solution && solutionID===problem._id ? 'active' : ''}`} onClick={handleClick.bind(null,problem)}>view solution</button>
+                            {solution && solutionID===problem._id && <ViewSolution problem={solutionInput}/>}
                         </div>
                     ))}
                 </div>
             ) : (
-                !message && <div>No problems found.</div>
+                !message && <div>loading...</div>
             )}
         </div>
     );
@@ -98,8 +98,10 @@ export default function UserHistory() {
 
 function ViewSolution({ problem }) {
     const [stops, setStops] = useState();
+    const [noSolutionFound,setNoSolutionFound]=useState(false);
+    const [noSolutionYet,setNoSolutionYet]=useState(false);
 
-    //console.log(problem)
+    console.log(problem)
 
     function getRoutes(routes) {
         const maxRouteLength = Math.max(...routes.map(r => r.route.length));
@@ -107,7 +109,7 @@ function ViewSolution({ problem }) {
 
         routes.forEach(route => {
             route.route.forEach((value, index) => {
-                if (value == undefined) { transposed[index].push(-1) }
+                if (value === undefined) { transposed[index].push(-1) }
                 transposed[index].push(value);
             });
             for (let i = route.route.length; i < maxRouteLength; i++) {
@@ -125,11 +127,15 @@ function ViewSolution({ problem }) {
             setStops(s);
             //console.log(stops)
         }
+        if(problem.solution[0]==='No solution found. Try different parameters.')
+            setNoSolutionFound(true)
+        if(problem?.solution.length===0)
+            setNoSolutionYet(true)
     }, [problem]);
     
     return (
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-            {problem && stops?.length > 0 ? (
+            {problem && !noSolutionFound && !noSolutionYet && stops?.length > 0 && (
                 <div className='container' style={{top: '0'}}>
                         <strong>Max Route Distance: {problem.solution[0].max_route_distance}</strong>
                         <div className='solution-container'>
@@ -175,9 +181,16 @@ function ViewSolution({ problem }) {
                             </table>
                         </div>
                 </div>
-            ) : (
-                <h1>no solution dawg</h1>
             )}
+            {!noSolutionFound && !noSolutionYet && !stops &&
+                (
+                <h1>loading...</h1>
+            )}
+            {noSolutionFound &&(
+                <h1>No solution found. Try different parameters.</h1>
+            )}
+            {noSolutionYet  &&
+            <h1>the problem is not solved yet</h1>}
         </div>
     )
 }
