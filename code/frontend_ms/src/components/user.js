@@ -16,9 +16,13 @@ export default function User() {
     const [solution, setSolution] = useState(false);
     const [statistics, setStatistics] = useState(false);
     const [history, setHistory] = useState(true);
+    const [problemCounter,setProblemCounter] = useState(0);
 
     function getProblemsid(value) {
         setProblemsID(value);
+    }
+    function modifyProblemCounter(value){
+        setProblemCounter(value);
     }
     function handleChangeValues(value1, value2, value3, value4, value5) {
         setBuy(value1);
@@ -35,8 +39,8 @@ export default function User() {
             <Navbar changeValues={handleChangeValues} notification={notification} />
             {history && <History />}
             {buy && <Buy />}
-            {solution && <Solution changenotification={changenotification} problemsID={problemsID} />}
-            {submit && <Submit changenotification={changenotification} getProblemsid={getProblemsid} />}
+            {solution && <Solution changenotification={changenotification} problemsID={problemsID} setProblemCounter={modifyProblemCounter} problemCounter={problemCounter}/>}
+            {submit && <Submit changenotification={changenotification} getProblemsid={getProblemsid} setProblemCounter={modifyProblemCounter} problemCounter={problemCounter}/>}
             {statistics && <Statistics />}
         </div>
     )

@@ -10,23 +10,32 @@ RETRY_INTERVAL = 5  # Interval between reconnection attempts in seconds
 def callback(ch, method, properties, body):
     try:
         data = json.loads(body)
-        print(data)
+        #print(data)
+        problemid = data['newObjectId']
         locations = data['locations']
         num_vehicles = int(data['num_vehicles'])
         depot = int(data['depot'])
         max_distance = int(data['max_distance'])
 
         # Solve the problem using the existing logic
+        print('calling solver')
         result = main_solver(locations, num_vehicles, depot, max_distance)
-        print(result)
         if result ==None:
             result='No solution found. Try different parameters.'
+        response_message = {
+            'problemID': problemid,
+            'solution': result
+        }
+        #print(response_message)
 
         # Send the result back to another queue
         ch.basic_publish(
             exchange='',
             routing_key='response_queue',
-            body=json.dumps(result)
+            properties=pika.BasicProperties(
+                correlation_id=problemid  # Set correlation_id property
+            ),
+            body=json.dumps(response_message)
         )
         print("Message published to response_queue")
 
@@ -39,7 +48,7 @@ def callback(ch, method, properties, body):
 def main():
     # Setup connection and channel
     connection_params = pika.ConnectionParameters(
-        host='rabbitmq', #localhost to run locally, rabbitmq to run in containers
+        host='localhost', #localhost to run locally, rabbitmq to run in containers
         heartbeat=600  # Increase the heartbeat timeout
     )
 
@@ -60,10 +69,13 @@ def main():
     try:
         print("trynig to consume")
         channel.start_consuming()
+    except pika.exceptions.ChannelClosedByBroker as e:
+        print(f"Queue was deleted or broker closed the channel: {e}")
     except pika.exceptions.AMQPConnectionError as e:
         print(f"Connection error: {e}, retrying in {RETRY_INTERVAL} seconds...")
         time.sleep(RETRY_INTERVAL)
     except KeyboardInterrupt:
+        print('deleted')
         channel.stop_consuming()
     if connection.is_open:
         connection.close()

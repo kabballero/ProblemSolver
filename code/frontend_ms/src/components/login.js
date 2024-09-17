@@ -30,7 +30,8 @@ function Login() {
                 else {
                     localStorage.setItem('userId', data.user_id);
                     localStorage.setItem('username', data.username);
-                    localStorage.setItem('credits', data.credits);
+                    localStorage.setItem('counter', 0);
+                    localStorage.setItem('submitedCounter', 0);
 
                     setMessage('Login successful!');
                     setTimeout(() => {
@@ -63,7 +64,8 @@ function Login() {
             if (data.success) {
                 localStorage.setItem('userId', data.user_id);
                 localStorage.setItem('username', data.username);
-                localStorage.setItem('credits', data.credits);
+                localStorage.setItem('counter', 0);
+                localStorage.setItem('submitedCounter', 0);
 
                 setMessage('Login successful!');
                 setTimeout(() => {

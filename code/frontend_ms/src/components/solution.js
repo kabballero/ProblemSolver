@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../css/mycss.css'
 
-export default function Solution({ problemsID, changenotification }) {
+export default function Solution({ problemsID, changenotification, setProblemCounter}) {
     const [answers, setAnswers] = useState();
     const [stops, setStops] = useState();
     const [cost, setCost] = useState(-1);
@@ -39,10 +39,14 @@ export default function Solution({ problemsID, changenotification }) {
         fetchData(`http://localhost:3100/getsolution/${problemsID}`) //localhost or submit_new_problems_service
             .then((res) => {
                 setAnswers(res)
+                console.log(res)
                 console.log(res[0].solution[0])
                 if(res[0].solution[0]==='No solution found. Try different parameters.'){
                     setNoSolustionFound(true);
                     changenotification(false);
+                    const currentCounter = parseInt(localStorage.getItem('counter'), 10) || 0;
+                    localStorage.setItem('counter', currentCounter-1);
+                    setProblemCounter(0);
                     console.log('No solution found. Try different parameters.')
                 }
                 else{
@@ -73,6 +77,9 @@ export default function Solution({ problemsID, changenotification }) {
                     const updatedCredits = storedCredits - parseInt(cost, 10);
                     localStorage.setItem('credits', updatedCredits);
                     changenotification(false);
+                    const currentCounter = parseInt(localStorage.getItem('counter'), 10) || 0;
+                    setProblemCounter(0);
+                    localStorage.setItem('counter', currentCounter-1);
                 }
             })
             .catch((e) => {
