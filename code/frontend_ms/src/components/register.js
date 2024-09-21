@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/Registration.css'; // Ensure you create and use this CSS file for styling
-
+ 
 function Registration() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
