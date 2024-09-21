@@ -82,6 +82,14 @@ body{
     background-color: #511675 !important;
     box-shadow: 0 4px 10px rgba(55, 0, 179, 0.2);
 }
+.button.inactive{
+    background-color: rgb(179, 178, 178);
+    cursor: not-allowed;
+}
+.button.inactive:hover{
+    background-color: rgb(179, 178, 178) !important;
+    box-shadow: none;
+}
 .input{
     text-align: center;
     border-radius: 50px;

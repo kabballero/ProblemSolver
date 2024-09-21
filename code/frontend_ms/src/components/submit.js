@@ -113,7 +113,7 @@ function Cars({ changenotification, getProblemsid, setProblemCounter, problemCou
                 <input required type="text" className="input1" onChange={(e) => setNumber(e.target.value)} placeholder='number of vechiles' />
                 <input required type="text" className="input1" onChange={(e) => setDepo(e.target.value)} placeholder='deposite' />
                 <input required type="text" className="input1" onChange={(e) => setMax(e.target.value)} placeholder='maximum distance' />
-                <button type="submit" disabled={problemCounter !== 0} style={problemCounter!==0 ?{cursor:'not-allowed',background: 'grey'}:{}} className='button'>submit</button>
+                <button type="submit" disabled={problemCounter !== 0} className={`button ${problemCounter!==0 ? 'inactive' : ''}`}>submit</button>
                 {problemCounter !== 0 &&
                     <div style={{display: 'flex',flexDirection: 'column', alignItems: 'center'}}>
                         <p className='text'>a problem is waiting in line in order to be 
