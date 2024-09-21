@@ -7,7 +7,6 @@
 
 locations.json
 locations3.json
-package.json
 package-lock.json
 # testing
 /coverage

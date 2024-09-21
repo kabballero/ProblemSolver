@@ -7,7 +7,7 @@ export default function Submit({ changenotification, getProblemsid, setProblemCo
     return (
         <div className='container'>
             <div className='container1' style={{ flexDirection: 'row' }}>
-                <label style={{ fontSize: '20px' }}>select your problen's category</label>
+                <label style={{ fontSize: '20px' }}>select your problem's category</label>
                 <select value={select} onChange={(e) => setSelect(e.target.value)} className='select-container'>
                     <option key={'cars'} value={'cars'}>cars</option>
                     <option key={'graphs'} value={'graphs'}>graphs</option>

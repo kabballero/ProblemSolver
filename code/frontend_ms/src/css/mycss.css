@@ -76,7 +76,11 @@ body{
     font-size: 15px !important;
     text-align: center;
     cursor:pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, box-shadow 0.3s ease;
+}
+.button:hover{
+    background-color: #511675 !important;
+    box-shadow: 0 4px 10px rgba(55, 0, 179, 0.2);
 }
 .input{
     text-align: center;
