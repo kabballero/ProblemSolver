@@ -68,10 +68,10 @@ app.get('/problems_time/:user_id', async (req, res) => {
 
     problems.forEach(problem => {
 
-      if ((Array.isArray(problem.solution) && problem.solution.length === 1 && problem.solution[0] === "No solution found. Try different parameters.") || (problem.solution.length === 0)) {
+      if ((Array.isArray(problem.solution) && problem.solution?.length === 1 && problem.solution[0] === "No solution found. Try different parameters.") || (problem.solution?.length === 0)) {
         return;   
       }
-      console.log(problem.solution);
+      //console.log(problem.solution);
 
       const problemId = problem._id.toString();
       problem.problemsinput.forEach(input => {
@@ -89,7 +89,7 @@ app.get('/problems_time/:user_id', async (req, res) => {
           };
         }
 
-        problem.solution.forEach(solution => {
+        problem.solution?.forEach(solution => {
           groupedProblems[key].time_taken.push(solution.time_taken);
         });
       });
@@ -111,6 +111,7 @@ app.get('/problems_time/:user_id', async (req, res) => {
 
     res.json(response);
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: 'Error fetching problems', error });
   }
 });
