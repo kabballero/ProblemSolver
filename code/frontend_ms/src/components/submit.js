@@ -77,32 +77,6 @@ function Cars({ changenotification, getProblemsid, setProblemCounter, problemCou
         console.log(problemsid)
     }
 
-    async function handleDelete(){
-        try {
-            const response = await fetch('http://localhost:3100/deleteQueue', {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            
-            const data = await response.json();
-            
-            if (response.ok) {
-                console.log('Queues deleted:', data);
-                setProblemCounter(0)
-                changenotification(false);
-            } else {
-                console.error('Error deleting queues:', data.message);
-            }
-        } catch (error) {
-            console.error('Error:', error.message);
-        }
-        localStorage.setItem('submitedCounter', 0);
-        localStorage.setItem('counter', 0);
-        //setProblemCounter(0);
-        //setProblemCounter(0)
-    }
 
 
     return (
@@ -114,13 +88,6 @@ function Cars({ changenotification, getProblemsid, setProblemCounter, problemCou
                 <input required type="text" className="input1" onChange={(e) => setDepo(e.target.value)} placeholder='starting point' />
                 <input required type="text" className="input1" onChange={(e) => setMax(e.target.value)} placeholder='maximum distance' />
                 <button type="submit" disabled={problemCounter !== 0} className={`button ${problemCounter!==0 ? 'inactive' : ''}`}>SUBMIT</button>
-                {problemCounter !== 0 &&
-                    <div style={{display: 'flex',flexDirection: 'column', alignItems: 'center'}}>
-                        <p className='text'>You can delete your submission (payment is automatic and non-refundable once you read your solution)
-                        </p>
-                        <button type="button" onClick={handleDelete} className='deleteButton'>DELETE</button>
-                    </div>
-                }
             </form>
             {success &&
                 <div className='popup'>

@@ -10,8 +10,8 @@ RETRY_INTERVAL = 5  # Interval between reconnection attempts in seconds
 def callback(ch, method, properties, body):
     try:
         data = json.loads(body)
-        #print(data)
-        problemid = data['newObjectId']
+        print(data)
+        #problemid = data['newObjectId']
         locations = data['locations']
         num_vehicles = int(data['num_vehicles'])
         depot = int(data['depot'])
@@ -20,22 +20,23 @@ def callback(ch, method, properties, body):
         # Solve the problem using the existing logic
         print('calling solver')
         result = main_solver(locations, num_vehicles, depot, max_distance)
+        print(result)
         if result ==None:
             result='No solution found. Try different parameters.'
-        response_message = {
-            'problemID': problemid,
-            'solution': result
-        }
+        # response_message = {
+        #     'problemID': problemid,
+        #     'solution': result
+        # }
         #print(response_message)
 
         # Send the result back to another queue
         ch.basic_publish(
             exchange='',
             routing_key='response_queue',
-            properties=pika.BasicProperties(
-                correlation_id=problemid  # Set correlation_id property
-            ),
-            body=json.dumps(response_message)
+            # properties=pika.BasicProperties(
+            #     correlation_id=problemid  # Set correlation_id property
+            # ),
+            body=json.dumps(result)
         )
         print("Message published to response_queue")
 
@@ -69,8 +70,8 @@ def main():
     try:
         print("trynig to consume")
         channel.start_consuming()
-    except pika.exceptions.ChannelClosedByBroker as e:
-        print(f"Queue was deleted or broker closed the channel: {e}")
+    # except pika.exceptions.ChannelClosedByBroker as e:
+    #     print(f"Queue was deleted or broker closed the channel: {e}")
     except pika.exceptions.AMQPConnectionError as e:
         print(f"Connection error: {e}, retrying in {RETRY_INTERVAL} seconds...")
         time.sleep(RETRY_INTERVAL)

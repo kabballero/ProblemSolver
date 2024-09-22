@@ -183,10 +183,7 @@ async function listenForSolutions() {
   return new Promise((resolve, reject) => {
     try{
       channel.consume(responseQueue, message => {
-          if(message==null){
-            resolve({solution: 'cancelled'});
-            return;
-          }
+          console.log("Received solution:", message.content.toString());
           const content = message.content.toString();
           //console.log(content)
           channel.ack(message);
@@ -199,34 +196,9 @@ async function listenForSolutions() {
   });
 }
 
-async function deleteQueue() {
-  try {
-      await connectRabbitMQ();
-
-      // Delete responseQueue
-      const responseQueueResult = await channel.deleteQueue(responseQueue);
-      console.log(`Response queue deleted`, responseQueueResult);
-
-      // Delete submit_problemQueue
-      const submitProblemQueueResult = await channel.deleteQueue(submit_problemQueue);
-      console.log(`Submit problem queue deleted`, submitProblemQueueResult);
-      
-      await channel.close();
-      //await connection.close();
-
-      return {
-        responseQueueResult,
-        submitProblemQueueResult
-      };
-  } catch (error) {
-      console.error(`Failed to delete queues:`, error);
-      throw error;
-  }
-}
 
 
 module.exports = {
     sendProblemData,
     listenForSolutions,
-    deleteQueue
 };
