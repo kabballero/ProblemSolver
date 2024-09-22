@@ -70,6 +70,9 @@ export default function UserHistory() {
     return (
         <div className="user-history-container">
             <h2>User History</h2>
+            <h3></h3><p style={{ fontStyle: 'italic', textAlign: 'center' }}>
+            All problems submitted by the user, ordered by date (oldest to most recent)
+             </p>
 
             {message && <div className="message">{message}</div>}
 
@@ -77,19 +80,19 @@ export default function UserHistory() {
                 <div className='problems-list'>
                     {problems.map((problem) => (
                         <div key={problem._id} className="problem-item">
-                            <div><strong>Date: </strong> {new Date(problem.date).toLocaleString()}</div>
-                            <div><strong>number of locations: </strong>{problem.problemsinput[0].locations.length}</div>
-                            <button className={`locations-button ${locations && solutionID===problem._id ? 'active' : ''}`} onClick={handleClick2.bind(null,problem)}>view locations</button>
+                            <div><strong style={{fontSize:'15px'}}> date: </strong> {new Date(problem.date).toLocaleString()}</div>
+                            <div><strong style={{fontSize:'15px'}}>number of locations: </strong>{problem.problemsinput[0].locations.length}</div>
+                            <button className={`locations-button ${locations && solutionID===problem._id ? 'active' : ''}`} onClick={handleClick2.bind(null,problem)} style={{fontStyle:'italic', fontSize:'10px'}} >LOCATIONS</button>
                             {locations && solutionID===problem._id && <ViewLocations problem={solutionInput}/>}
-                            <div><strong>number of vehicles: </strong>{problem.problemsinput[0].num_vehicles}</div>
-                            <div><strong>max distance: </strong>{problem.problemsinput[0].max_distance}</div>
-                            <button className={`solution-button ${solution && solutionID===problem._id ? 'active' : ''}`} onClick={handleClick.bind(null,problem)}>view solution</button>
+                            <div><strong style={{fontSize:'15px'}}>number of vehicles: </strong> {new Intl.NumberFormat('de-DE').format(problem.problemsinput[0].num_vehicles)}</div>
+                            <div><strong style={{fontSize:'15px'}}>max. distance: </strong>{new Intl.NumberFormat('de-DE', { minimumFractionDigits: 0, maximumFractionDigits: 3 }).format(problem.problemsinput[0].max_distance / 1000)} km</div>
+                            <button className={`solution-button ${solution && solutionID===problem._id ? 'active' : ''}`} onClick={handleClick.bind(null,problem)} style={{fontStyle:'italic',fontSize:'10px'}} >SOLUTION</button>
                             {solution && solutionID===problem._id && <ViewSolution problem={solutionInput}/>}
                         </div>
                     ))}
                 </div>
             ) : (
-                !message && <div>loading...</div>
+                !message && <div>Loading...</div>
             )}
         </div>
     );
@@ -167,7 +170,7 @@ function ViewSolution({ problem }) {
                                 <thead>
                                     <tr>
                                         {problem.solution[0].routes?.map((car) => (
-                                            <th key={car.vehicle_id}>max distance car {car.vehicle_id} made</th>
+                                            <th key={car.vehicle_id}>max distance car {car.vehicle_id} reached</th>
                                         ))}
                                     </tr>
                                 </thead>
@@ -182,15 +185,15 @@ function ViewSolution({ problem }) {
                         </div>
                 </div>
             )}
-            {!noSolutionFound && !noSolutionYet && !stops &&
-                (
-                <h1>loading...</h1>
+            {!noSolutionFound && !noSolutionYet && !stops && (
+                <h1 style={{ fontSize: '16px' }}>Loading...</h1>
             )}
-            {noSolutionFound &&(
-                <h1>No solution found. Try different parameters.</h1>
+            {noSolutionFound && (
+                <h1 style={{ fontSize: '16px' }}>No solution exists.</h1>
             )}
-            {noSolutionYet  &&
-            <h1>the problem is not solved yet</h1>}
+            {noSolutionYet && (
+                <h1 style={{ fontSize: '16px' }}>Solution not found.</h1>
+            )}
         </div>
     )
 }
