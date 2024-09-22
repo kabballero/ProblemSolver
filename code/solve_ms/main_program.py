@@ -48,7 +48,7 @@ def callback(ch, method, properties, body):
 def main():
     # Setup connection and channel
     connection_params = pika.ConnectionParameters(
-        host='localhost', #localhost to run locally, rabbitmq to run in containers
+        host='rabbitmq', #localhost to run locally, rabbitmq to run in containers
         heartbeat=600  # Increase the heartbeat timeout
     )
 

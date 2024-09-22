@@ -140,7 +140,7 @@ const RECONNECT_INTERVAL = 5000; // 5 seconds
 
 async function connectRabbitMQ() {
     //if (!channel) {
-    const connection = await amqp.connect('amqp://localhost', { //amqp://localhost'  when running on localhost
+    const connection = await amqp.connect('amqp://rabbitmq', { //amqp://localhost'  when running on localhost
       heartbeat: 600 // Set the heartbeat interval to 10 seconds
   }); // Connect to RabbitMQ server
     connection.on('error', handleConnectionError);
