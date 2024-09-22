@@ -21,29 +21,12 @@ export default function Navbar({ changeValues, notification = false }) {
         changeValues(false, false, false, false, true)
 
     }
-    async function handleClick() {
-        try {
-            const response = await fetch('http://localhost:3100/deleteQueue', {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
 
-            const data = await response.json();
-
-            if (response.ok) {
-                console.log('Queues deleted:', data);
-                // Perform any further action if needed, e.g., updating UI or state
-            } else {
-                console.error('Error deleting queues:', data.message);
-            }
-        } catch (error) {
-            console.error('Error:', error.message);
-        }
+    function handleClick(){
         localStorage.clear();
         window.location.replace('/');
     }
+    
     return (
         <div className='navbar'>
             <h1 style={{ cursor: 'pointer' }} onClick={values1}>Buy Credits</h1>

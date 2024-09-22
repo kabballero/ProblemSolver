@@ -7,7 +7,7 @@ WORKDIR /app
 COPY . /app
 
 # Install required packages
-RUN pip install --no-cache-dir pika ortools
+RUN pip install --no-cache-dir pika ortools 
 
 # Expose the port the app runs on,no need??
 #EXPOSE 5672
