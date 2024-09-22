@@ -6,7 +6,9 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const con = require('./database')
 const ProblemModel = require('./problem');
-require('dotenv').config({ path: '../.env' });
+const path = require('path');
+//require('dotenv').config({ path: '../.env' });
+const envPath = path.join(__dirname, '../.env');
 
 const bodyParser = require('body-parser');
 const submit = require('./submit'); // Import the RabbitMQ functions
@@ -166,7 +168,7 @@ function startPythonScript() {
 }
 
 app.delete('/deleteQueue', async (req, res) => {
-    try {
+    /*try {
         const result = await submit.deleteQueue();
         console.log('Queue deleted successfully:', result);
 
@@ -191,12 +193,29 @@ app.delete('/deleteQueue', async (req, res) => {
     } catch (error) {
         // Catch any error from either the queue deletion or Python process handling
         res.status(500).send({ message: `Failed to delete queues or restart Python script`, error: error.message });
-    }
+    }*/
+   try{ 
+    const result = await submit.deleteQueue();
+    console.log('Queue deleted successfully:', result);
+    let envContent = fs.readFileSync(envPath, 'utf8');
+
+    // Update the KILL_CHILD variable
+    envContent = envContent.replace(/QUEUE_DELETED=.*/, 'QUEUE_DELETED=true');
+
+    // Write the updated content back to the .env file
+    fs.writeFileSync(envPath, envContent, 'utf8');
+
+    console.log("KILL_CHILD has been set to true in the .env file.");
+    res.status(200).send({ message: `Queues deleted and Python script restarted successfully`, result });
+   }
+   catch(error){
+    res.status(500).send({ message: `Failed to delete queues or restart Python script`, error: error.message });
+   }
 });
 
 
 // Start the server and immediately begin listening for solutions
 app.listen(port, async () => {
     console.log(`Server running on http://submit_new_problem_service:${port}`);
-    startPythonScript();
+    //startPythonScript();
 });
