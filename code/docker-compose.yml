@@ -9,38 +9,92 @@ services:
     networks:
       - app-network
 
-  frontend:
+  frontend_ms:
     build: 
-      context: ./frontend
+      context: ./frontend_ms
     ports: 
-      - "8080:80"
+      - "3000:3000"
+    networks:
+      - app-network
+    depends_on:
+      - login_ms
+      - buy_ms
+      - pay_ms
+      - submit_ms
+      - history_ms
+
+  login_ms:
+    build:
+      context: ./login_ms
+    ports:
+      - "3001:3001"
     networks:
       - app-network
 
-  solve_ortool_problem_service:
+  statistics_ms:
     build:
-      context: ./solve_ORTool_problem_service
+      context: ./statistics_ms
+    ports:
+      - "4000:4000"
+    networks:
+      - app-network
+
+  buy_ms:
+    build:
+      context: ./buy_ms
+    ports:
+      - "9103:9103"
+    networks:
+      - app-network
+
+  admin_ms:
+    build:
+      context: ./admin_ms
+    ports:
+      - "4200:4200"
+    networks:
+      - app-network
+
+  pay_ms:
+    build:
+      context: ./pay_ms
+    ports:
+      - "9000:9000"
+    networks:
+      - app-network
+
+  history_ms:
+    build:
+      context: ./history_ms
+    ports:
+      - "3010:3010"
+    networks:
+      - app-network
+
+  solve_ms:
+    build:
+      context: ./solve_ms
     depends_on:
       - rabbitmq
-      - frontend
     networks:
       - app-network
     command: ["./wait-for-it.sh", "rabbitmq:5672", "--timeout=100", "--", "python", "main_program.py"]
+    #command: ["python", "main_program.py"]
     environment:
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_PORT=5672
 
-  submit_new_problem_service:
+  submit_ms:
     build:
-      context: ./submit_new_problem_service
+      context: ./submit_ms
     depends_on:
       - rabbitmq
     ports:
-      - "3000:3000"
+      - "3100:3100"
     networks:
       - app-network
-    #command: ["./wait-for-it.sh", "rabbitmq:5672", "--timeout=100", "--", "node", "submit.js"]
     command: "./wait-for-it.sh rabbitmq:5672 --timeout=100 -- node server.js"
+    #command: "node server.js"
     environment:
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_PORT=5672

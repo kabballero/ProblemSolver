@@ -1,0 +1,124 @@
+/* Styling for the statistics container */
+.statistics-container {
+    padding: 20px;
+    text-align: center;
+}
+
+/* Styling for the button */
+.toggle-button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.toggle-button:hover {
+    background-color: #45a049;
+}
+
+/* Styling for the table */
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px; /* Make text smaller */
+    text-align: left;
+}
+
+.custom-table th, .custom-table td {
+    border: 1px solid #ddd; /* Add table borders */
+    padding: 8px;
+    text-align: center; /* Center text */
+    word-wrap: break-word;
+}
+
+.custom-table th {
+    background-color: #f2f2f2; /* Add background to table headers */
+    font-weight: bold;
+}
+
+.custom-table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Add alternating row colors */
+}
+
+.custom-table tr:hover {
+    background-color: #ddd; /* Highlight row on hover */
+}
+
+/* Dropdown for the locations */
+.location-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.location-list {
+    display: block;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 5px;
+    max-height: 150px;
+    overflow-y: auto; /* Add scroll for long lists */
+    z-index: 1; /* Make sure dropdown appears above the table */
+    font-size: 12px; /* Adjust font size */
+}
+
+.location-list li {
+    padding: 5px;
+}
+
+.location-list li:hover {
+    background-color: #f0f0f0;
+}
+
+/* Ensure the dropdown doesn't interfere with the table layout */
+.location-dropdown button {
+    margin: 5px 0;
+}
+
+.location-list {
+    min-width: 180px;
+}
+.graph-button, .chart-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 75px; /* Ensure buttons have consistent size */
+    text-align: center;
+}
+
+.graph-button {
+    background-color: orange;
+    color: white;
+}
+
+.chart-button {
+    background-color: pink;
+    color: white;
+}
+
+.graph-button.active, .chart-button.active {
+    background-color: green; /* Change to green when active */
+}
+
+
+.chart-wrapper {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.chart-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.chart-list li {
+    margin: 5px 0;
+}
+
+
+

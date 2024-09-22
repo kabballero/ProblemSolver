@@ -1,0 +1,272 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: #bda789;
+}
+
+.navbar {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    column-gap: 60px;
+    background: #dbc8eb;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 22px; 
+    transition: background-color 0.3s;
+}
+
+/* Color-specific changes for the navbar links */
+.navbar h1:nth-child(1) {
+    color: rgb(8, 181, 194);
+}
+
+.navbar h1:nth-child(2) {
+    color: rgb(33, 145, 18);
+}
+
+.navbar h1:nth-child(3) {
+    color: rgb(16, 16, 182);
+}
+
+.navbar h1:nth-child(4) {
+    color: rgb(228, 152, 10);
+}
+
+.navbar h1:hover {
+    background-color: #35095e;
+}
+
+.navbar .solveme {
+    cursor: default;
+    position: absolute;
+    left: 20px;
+    transition: none;
+    font-size: 30px; 
+    font-style: italic;
+    color: rgb(230, 9, 174);
+}
+
+.navbar .solveme:hover {
+    background-color: initial;
+}
+
+.h2 {
+    position: absolute;
+    overflow: auto;
+    border-style: dotted;
+    margin-top: 7vw;
+    padding: 20px;
+    width: 25vw;
+    height: 20vw;
+    right: 5vw;
+}
+
+.h3 {
+    position: absolute;
+    overflow: auto;
+    border-style: dotted;
+    margin-top: 7vw;
+    padding: 20px;
+    width: 25vw;
+    height: 20vw;
+    left: 5vw;
+}
+
+.container {
+    position: relative;
+    top: 5vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.container2 {
+    position: relative;
+    top: 5vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.button {
+    max-width: fit-content !important;
+    max-height: fit-content !important;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px !important;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s ease;
+}
+
+.button:hover {
+    background-color: #511675 !important;
+    box-shadow: 0 4px 10px rgba(55, 0, 179, 0.2);
+}
+
+.button.inactive {
+    background-color: rgb(179, 178, 178);
+    cursor: not-allowed;
+}
+
+.button.inactive:hover {
+    background-color: rgb(179, 178, 178) !important;
+    box-shadow: none;
+}
+
+.input {
+    text-align: center;
+    border-radius: 50px;
+    font-size: 30px;
+    background: #a493af;
+}
+
+.popup {
+    position: absolute;
+    max-width: 400px;
+    background: #5a3c6d;
+    top: 5vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: popupAnimation 0.2s ease-out;
+    transition: transform 0.2s ease-out, opacity 0.3s ease-out;
+    z-index: 1000;
+}
+
+@keyframes popupAnimation {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.bell {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 5px;
+    font-size: 24px;
+}
+
+.bell .badge {
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    top: 3px;
+    right: 4px;
+    border-radius: 50%;
+    background: red;
+}
+
+.container1 {
+    position: relative;
+    top: 0vw;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 400px;
+    overflow: auto;
+}
+
+.text {
+    max-width: 300px;
+    color: red;
+}
+
+.deleteButton {
+    background-color: red;
+    border: none;
+    cursor: pointer;
+    max-width: fit-content;
+    font-size: 15px;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.deleteButton:hover {
+    background-color: rgb(160, 0, 0);
+}
+
+.input1 {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+}
+
+.select-container {
+    position: relative;
+    cursor: pointer;
+    font-size: 16px;
+    background: #cdc3d4;
+}
+
+.select-container:hover {
+    background-color: #aea1b8;
+}
+
+.solution-container {
+    overflow: auto;
+    position: relative;
+    top: 0vw;
+    max-width: 90vw;
+    box-sizing: border-box;
+}
+
+.logout-button {
+    background-color: #c71313;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.logout-button:hover {
+    background-color: #ff1313;
+}
+
+@media (max-width: 1190px) {
+    .navbar {
+        justify-content: space-between;
+        column-gap: 10px;
+        padding: 0px;
+        flex-wrap: nowrap;
+    }
+
+    .navbar h1 {
+        font-size: 3vw;
+        gap: 5px;
+        white-space: nowrap;
+    }
+
+    .navbar .solveme {
+        display: none;
+    }
+
+    .bell {
+        font-size: 3vw;
+    }
+}
