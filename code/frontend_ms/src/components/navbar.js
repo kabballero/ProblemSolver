@@ -46,11 +46,11 @@ export default function Navbar({ changeValues, notification = false }) {
     }
     return (
         <div className='navbar'>
-            <h1 style={{ cursor: 'pointer' }} onClick={values1}>buy credits</h1>
-            <h1 style={{ cursor: 'pointer' }} onClick={values2}>submit problem</h1>
-            <h1 style={{ cursor: 'pointer' }} onClick={values4}>statistics</h1>
-            <h1 style={{ cursor: 'pointer' }} onClick={values5}>history</h1>
-            <button className='logout-button' onClick={handleClick}>logout</button>
+            <h1 style={{ cursor: 'pointer' }} onClick={values1}>Buy Credits</h1>
+            <h1 style={{ cursor: 'pointer' }} onClick={values2}>Submit New Problem</h1>
+            <h1 style={{ cursor: 'pointer' }} onClick={values4}>User Statistics</h1>
+            <h1 style={{ cursor: 'pointer' }} onClick={values5}>History</h1>
+            <button className='logout-button' onClick={handleClick} style={{ fontWeight: 'bold' }} >Log Out</button>
             <div className='bell' >
                 <span onClick={values3} style={!notification ? { cursor: 'not-allowed' } : {}}>🔔</span>
                 {notification && <span className="badge"></span>}

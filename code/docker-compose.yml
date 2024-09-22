@@ -47,6 +47,14 @@ services:
     networks:
       - app-network
 
+  admin_ms:
+    build:
+      context: ./admin_ms
+    ports:
+      - "4200:4200"
+    networks:
+      - app-network
+
   pay_ms:
     build:
       context: ./pay_ms

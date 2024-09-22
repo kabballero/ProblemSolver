@@ -43,12 +43,12 @@ export default function Buy() {
             {credits !=-1 ? (
                 <div className='container'>
                     <form className='container1' onSubmit={handleClick}>
-                        <h1>you have {credits} credits</h1>
-                        <input required type="text" className="input1" onChange={(e) => setNumber(e.target.value)} placeholder='number of credits' />
-                        <button className='button'>buy</button>
+                        <h1>There are {new Intl.NumberFormat('de-DE').format(credits)} credits in your account.</h1>
+                        <input required type="text" className="input1" onChange={(e) => setNumber(e.target.value)} placeholder='How many credits do you want to buy?' />
+                        <button className='button'>BUY NOW</button>
                     </form>
                 </div>) : (
-                <h1>wait dawg</h1>
+                <h1>Loading...</h1>
             )
             }
         </div>

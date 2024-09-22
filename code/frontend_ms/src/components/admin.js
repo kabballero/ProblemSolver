@@ -91,8 +91,8 @@ export default function Admin() {
                     <option value="1">solved</option>
                     <option value="0">unsolved</option>
                 </select>
-                <button className="adminsFormButton" type='submit'>submit</button>
-                <button className="adminslogoutbutton" onClick={()=>window.location.replace('/')}>logout</button>
+                <button className="adminsFormButton" type='submit'>SEARCH</button>
+                <button className="adminslogoutbutton" onClick={()=>window.location.replace('/')}>LOG OUT</button>
             </form>
             {problems?.length > 0 ? (
                 <div className='problems-list'>
@@ -111,7 +111,7 @@ export default function Admin() {
                     ))}
                 </div>
             ) : (
-                <div>here will be shown the history</div>
+                <div>History of problems according to different parameters</div>
             )}
         </div>
     )

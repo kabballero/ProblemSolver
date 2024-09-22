@@ -7,10 +7,10 @@ export default function Submit({ changenotification, getProblemsid, setProblemCo
     return (
         <div className='container'>
             <div className='container1' style={{ flexDirection: 'row' }}>
-                <label style={{ fontSize: '20px' }}>select your problem's category</label>
+                <label style={{ fontSize: '20px' }}>Select a problem category</label>
                 <select value={select} onChange={(e) => setSelect(e.target.value)} className='select-container'>
-                    <option key={'cars'} value={'cars'}>cars</option>
-                    <option key={'graphs'} value={'graphs'}>graphs</option>
+                    <option key={'cars'} value={'cars'}>Car routes</option>
+                    <option key={'graphs'} value={'graphs'}>Graphs</option>
                 </select>
             </div>
             {select === 'cars' && <Cars changenotification={changenotification} getProblemsid={getProblemsid} setProblemCounter={setProblemCounter} problemCounter={problemCounter}/>}
@@ -111,23 +111,21 @@ function Cars({ changenotification, getProblemsid, setProblemCounter, problemCou
                 <h3>Please submit your problem's input</h3>
                 <input required type="file" onChange={(e) => setFile(e.target.files[0])} accept=".json,application/json" />
                 <input required type="text" className="input1" onChange={(e) => setNumber(e.target.value)} placeholder='number of vechiles' />
-                <input required type="text" className="input1" onChange={(e) => setDepo(e.target.value)} placeholder='deposite' />
+                <input required type="text" className="input1" onChange={(e) => setDepo(e.target.value)} placeholder='starting point' />
                 <input required type="text" className="input1" onChange={(e) => setMax(e.target.value)} placeholder='maximum distance' />
-                <button type="submit" disabled={problemCounter !== 0} className={`button ${problemCounter!==0 ? 'inactive' : ''}`}>submit</button>
+                <button type="submit" disabled={problemCounter !== 0} className={`button ${problemCounter!==0 ? 'inactive' : ''}`}>SUBMIT</button>
                 {problemCounter !== 0 &&
                     <div style={{display: 'flex',flexDirection: 'column', alignItems: 'center'}}>
-                        <p className='text'>a problem is waiting in line in order to be 
-                            solved or has already been solved but you have not seen it yet,
-                            you have to wait/see it or delete it in order to submit an other problem
+                        <p className='text'>You can delete your submission (payment is automatic and non-refundable once you read your solution)
                         </p>
-                        <button type="button" onClick={handleDelete} className='deleteButton'>delete</button>
+                        <button type="button" onClick={handleDelete} className='deleteButton'>DELETE</button>
                     </div>
                 }
             </form>
             {success &&
                 <div className='popup'>
                     <h1>Problem Submited</h1>
-                    <button className='button' onClick={handleClick2}>okay</button>
+                    <button className='button' onClick={handleClick2}>OK</button>
                 </div>}
 
         </div>
@@ -135,24 +133,23 @@ function Cars({ changenotification, getProblemsid, setProblemCounter, problemCou
 }
 function Graphs() {
     return (
-        <div className='container1' style={{ padding: 0, margin: 0 }}>
-            <img
-                src="/image1.jpg"
-                alt="Graph"
-                style={{
-                    width: '80%',  // Adjusts width of the image
-                    height: 'auto',
-                    maxHeight: '80vh',  // Adjusts max height of the image
-                    margin: '0 auto',  // Centers the image without extra margin
-                    display: 'block',
-                    objectFit: 'contain',
-                    borderRadius: '5px',
-                    backgroundColor: 'transparent'  // Ensures the background is transparent
-                }}
-            />
-        </div>
+        <img
+            src="/image1.jpg"
+            alt="Graph"
+            style={{
+                height: '65vh',     // Set height to 100% of the viewport height
+                width: 'auto',       // Set width to 100% to cover the page width
+                objectFit: 'cover',  // Cover the entire area while preserving the aspect ratio
+                display: 'block',
+                margin: '0',         // Remove any default margin
+                borderRadius: '0',   // Remove border-radius if you want it fully extended
+                backgroundColor: 'transparent'
+            }}
+        />
     );
 }
+
+
 
 
 
