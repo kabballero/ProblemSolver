@@ -24,6 +24,7 @@ export default function Statistics() {
                 setLoading(true);
                 const response = await fetch(`http://localhost:4000/problems_time/${userId}`);
                 const result = await response.json();
+                console.log(result)
                 setData(result);
                 setLoading(false);
             } catch (error) {

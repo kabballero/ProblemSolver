@@ -65,7 +65,7 @@ app.get('/problems_time/:user_id', async (req, res) => {
           };
         }
 
-        problem.solution.forEach(solution => {
+        problem.solution?.forEach(solution => {
           groupedProblems[key].time_taken.push(solution.time_taken);
         });
       });
