@@ -134,6 +134,7 @@ const amqp = require('amqplib');
 
 const submit_problemQueue = 'submit_problem_queue';
 const responseQueue = 'response_queue';
+const deleteQueue='delete_queue'
 let connection;
 let channel = null;
 const RECONNECT_INTERVAL = 5000; // 5 seconds
@@ -148,6 +149,7 @@ async function connectRabbitMQ() {
     channel = await connection.createChannel(); // Create a channel
     await channel.assertQueue(submit_problemQueue, { durable: true }); // Assert queues
     await channel.assertQueue(responseQueue, { durable: true });
+    await channel.assertQueue(deleteQueue, { durable: true });
     //}
 }
 
@@ -164,6 +166,16 @@ async function sendProblemData(data) {
     await connectRabbitMQ();
     channel.sendToQueue(submit_problemQueue, Buffer.from(JSON.stringify(data))); // Send problem data
     console.log("Sent problem data to the solver.");
+}
+
+async function sendDeleteSignal() {
+  await connectRabbitMQ();
+  // Convert the message into a buffer
+  const message = JSON.stringify({ delete: 'true'});
+
+  // Send the message to the queue
+  channel.sendToQueue(deleteQueue, Buffer.from(message));
+  console.log("Sent delete signal.");
 }
 
 /*async function listenForSolutions() {
@@ -199,7 +211,7 @@ async function listenForSolutions() {
   });
 }
 
-async function deleteQueue() {
+async function deleteQueue1() {
   try {
       await connectRabbitMQ();
 
@@ -228,5 +240,6 @@ async function deleteQueue() {
 module.exports = {
     sendProblemData,
     listenForSolutions,
-    deleteQueue
+    sendDeleteSignal,
+    deleteQueue1
 };

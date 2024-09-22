@@ -142,74 +142,14 @@ app.get('/getsolution/:problemsid', async (req, res) => {
     }
 })
 
-function startPythonScript() {
-    console.log("Starting Python script...");
-    pythonProcess = spawn('python', ['../solve_ms/main_program.py']);  // Adjust the path to your script
-
-    pythonProcess.stdout.on('data', (data) => {
-        console.log(`Python Output: ${data}`);
-    });
-
-    pythonProcess.stderr.on('data', (data) => {
-        console.error(`Python Error: ${data}`);
-    });
-
-    pythonProcess.on('close', (code) => {
-        console.log(`Python process exited with code ${code}`);
-    });
-
-    pythonProcess.on('error', (err) => {
-        console.error('Failed to start Python script:', err);
-    });
-
-    pythonProcess.stderr.on('data', (data) => {
-        console.error(`Python Error: ${data}`);
-    });
-}
-
 app.delete('/deleteQueue', async (req, res) => {
-    /*try {
-        const result = await submit.deleteQueue();
-        console.log('Queue deleted successfully:', result);
-
-        if (pythonProcess) {
-            console.log("Stopping Python script...");
-            pythonProcess.kill();  // Kill the Python process
-            pythonProcess.on('exit', (code) => {
-                console.log(`Python process exited with code ${code}. Restarting...`);
-
-                // Start a new Python process once the old one has exited
-                startPythonScript();
-            });
-        } else {
-            console.log("No Python process found. Starting a new one...");
-            console.log("No Python process found. Starting a new one...");
-            startPythonScript();  // Start Python script if it wasn't running
-        }
-
-        // Send a single success response after all actions are completed
-        res.status(200).send({ message: `Queues deleted and Python script restarted successfully`, result });
-
-    } catch (error) {
-        // Catch any error from either the queue deletion or Python process handling
-        res.status(500).send({ message: `Failed to delete queues or restart Python script`, error: error.message });
-    }*/
    try{ 
-    const result = await submit.deleteQueue();
-    console.log('Queue deleted successfully:', result);
-    let envContent = fs.readFileSync(envPath, 'utf8');
-
-    // Update the KILL_CHILD variable
-    envContent = envContent.replace(/QUEUE_DELETED=.*/, 'QUEUE_DELETED=true');
-
-    // Write the updated content back to the .env file
-    fs.writeFileSync(envPath, envContent, 'utf8');
-
-    console.log("KILL_CHILD has been set to true in the .env file.");
-    res.status(200).send({ message: `Queues deleted and Python script restarted successfully`, result });
+    await submit.sendDeleteSignal();
+    const result = await submit.deleteQueue1();
+    res.status(200).send({ message: `sent delete signal`, result });
    }
    catch(error){
-    res.status(500).send({ message: `Failed to delete queues or restart Python script`, error: error.message });
+    res.status(500).send({ message: `Failed to sent delete signal`, error: error.message });
    }
 });
 
@@ -217,5 +157,4 @@ app.delete('/deleteQueue', async (req, res) => {
 // Start the server and immediately begin listening for solutions
 app.listen(port, async () => {
     console.log(`Server running on http://submit_new_problem_service:${port}`);
-    //startPythonScript();
 });

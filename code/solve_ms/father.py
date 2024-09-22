@@ -1,52 +1,55 @@
 import subprocess
-import os
-import time
-from dotenv import load_dotenv
-from pathlib import Path
+import json
+import pika
 
-# Path to the .env file located in another folder
-env_path = Path('../.env')
-
-# Load the .env file into the environment
-load_dotenv(dotenv_path=env_path)
+process = None
 
 # Function to run the child process
 def run_child_process():
     return subprocess.Popen(['python', 'main_program.py'])
 
+def callback(ch, method, properties, body):
+    global process
+    try:
+        data = json.loads(body)
+        print(data)
+        delete = data['delete']
+        if delete=='true':
+            print('terminating main program')
+            process.kill()
+            process.wait() 
+            print("Restarting child process...")
+            process = run_child_process()
+        ch.basic_ack(delivery_tag=method.delivery_tag)
+        print('acknwoledged delete signal')
+    except Exception as e:
+        print(f"Error processing message from delete queue: {e}")
+
 # Main loop to monitor the environment variable and restart the process
 def monitor_and_restart():
+    global process
     process = run_child_process()  # Start the child process
 
     try:
-        while True:
-            # Load the environment variable each time (in case the file changes)
-            load_dotenv(dotenv_path=env_path, override=True)  # Reload the .env file to get updated values
+        connection_params = pika.ConnectionParameters(
+        host='rabbitmq', #localhost to run locally, rabbitmq to run in containers
+        heartbeat=600  # Increase the heartbeat timeout
+        )
 
-            # Check the environment variable
-            condition = os.getenv('QUEUE_DELETED')
+        connection = pika.BlockingConnection(connection_params) 
+        channel = connection.channel()
 
-            if condition == 'true':  # If the variable is "true", kill and restart the process
-                print("Condition met, terminating the child process...")
-                process.kill()  # Terminate the child process
-                process.wait()  # Wait for it to fully stop
-                print("Child process terminated.")
+        # Declare the queue from which to consume
+        channel.queue_declare(queue='delete_queue', durable=True)
 
-                # Restart the child process
-                print("Restarting child process...")
-                process = run_child_process()
-
-                # Reset the environment variable to "false"
-                os.environ['KILL_CHILD'] = 'false'
-
-                # Optionally write the change back to the .env file
-                with open(env_path, 'w') as f:
-                    f.write('QUEUE_DELETED=false\n')
-
-                print("Environment variable reset to 'false'.")
-
-            time.sleep(5)  # Sleep for 5 seconds before checking again
-
+        # Set up consumer
+        channel.basic_consume(
+            queue='delete_queue',
+            on_message_callback=callback,
+            auto_ack=False
+        )
+        print("start listening for delete signals")
+        channel.start_consuming()
     except KeyboardInterrupt:
         # Cleanup if the main process is interrupted (Ctrl+C)
         print("Shutting down...")
