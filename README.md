@@ -11,7 +11,7 @@ Frontend shows up at localhost:3000
 Rabbitmq management is running on localhost:15672 (credentials: guest, guest).
 
 
-Important: Make sure the wait-for-it.sh scripts are in LF encoding and not CRLF encoding. You can check it the editor options of the file. 
+Important: Make sure the wait-for-it.sh scripts are in LF encoding and not in CRLF encoding. You can check it in the editor options of the file. 
 To make sure script encoding is not converted from LF to CRLF when running git clone from Windows, run git config --global core.autocrlf false.
 
 
