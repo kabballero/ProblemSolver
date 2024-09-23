@@ -112,7 +112,7 @@ function Cars({ changenotification, getProblemsid, setProblemCounter, problemCou
                 <input required type="file" onChange={(e) => setFile(e.target.files[0])} accept=".json,application/json" />
                 <input required type="text" className="input1" onChange={(e) => setNumber(e.target.value)} placeholder='number of vechiles' />
                 <input required type="text" className="input1" onChange={(e) => setDepo(e.target.value)} placeholder='starting point' />
-                <input required type="text" className="input1" onChange={(e) => setMax(e.target.value)} placeholder='maximum distance' />
+                <input required type="text" className="input1" onChange={(e) => setMax(e.target.value)} placeholder='maximum distance (in meters)' />
                 <button type="submit" disabled={problemCounter !== 0} className={`button ${problemCounter!==0 ? 'inactive' : ''}`}>SUBMIT</button>
                 {problemCounter !== 0 &&
                     <div style={{display: 'flex',flexDirection: 'column', alignItems: 'center'}}>
