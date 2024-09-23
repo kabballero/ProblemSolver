@@ -4,7 +4,10 @@ import pika
 
 process = None
 
-# Function to run the child process
+#Main purpose is to spawn the main_program.py (the solving script) 
+# as a child and terminate it when the designated problem is deleted from the rabbitmq queue.
+
+# Function to run the child process.
 def run_child_process():
     return subprocess.Popen(['python', 'main_program.py'])
 
