@@ -8,3 +8,4 @@ converage
 .vscode
 .github
 _pycache_
+.env
