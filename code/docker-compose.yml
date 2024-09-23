@@ -78,7 +78,7 @@ services:
       - rabbitmq
     networks:
       - app-network
-    command: ["./wait-for-it.sh", "rabbitmq:5672", "--timeout=100", "--", "python", "main_program.py"]
+    command: ["./wait-for-it.sh", "rabbitmq:5672", "--timeout=100", "--", "python", "father.py"]
     #command: ["python", "main_program.py"]
     environment:
       - RABBITMQ_HOST=rabbitmq

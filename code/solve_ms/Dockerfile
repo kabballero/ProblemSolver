@@ -15,4 +15,4 @@ RUN pip install --no-cache-dir pika ortools
 #COPY wait-for-it.sh .
 #RUN chmod +x wait-for-it.sh
 # Run main_program.py when the container launches
-CMD ["python", "main_program.py"]
+CMD ["python", "father.py"]

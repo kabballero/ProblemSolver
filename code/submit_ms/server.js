@@ -114,10 +114,19 @@ app.get('/getsolution/:problemsid', async (req, res) => {
     }
 })
 
+app.delete('/deleteQueue', async (req, res) => {
+   try{ 
+    await submit.sendDeleteSignal();
+    const result = await submit.deleteQueue1();
+    res.status(200).send({ message: `sent delete signal`, result });
+   }
+   catch(error){
+    res.status(500).send({ message: `Failed to sent delete signal`, error: error.message });
+   }
+});
 
 
 // Start the server and immediately begin listening for solutions
 app.listen(port, async () => {
     console.log(`Server running on http://submit_new_problem_service:${port}`);
-    //startPythonScript();
 });

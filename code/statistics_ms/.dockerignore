@@ -8,3 +8,4 @@ converage
 .tmp
 .vscode
 .github
+.env
