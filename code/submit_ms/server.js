@@ -17,15 +17,6 @@ const upload = multer({ dest: 'uploads/' });
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//when local run
-// Serve the HTML file on the homepage route
-//const path = require('path');
-//app.use(express.static(path.join(__dirname, '..', 'frontend')));
-//app.get('/', (req, res) => {
-//    res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
-//});
-
-
 app.post('/submit', upload.single('locationsFile'), async (req, res) => {
     const { num_vehicles, depot, max_distance, userID } = req.body;  // Extract other form data
     let locations;

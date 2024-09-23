@@ -23,11 +23,6 @@ def callback(ch, method, properties, body):
         print(result)
         if result ==None:
             result='No solution found. Try different parameters.'
-        # response_message = {
-        #     'problemID': problemid,
-        #     'solution': result
-        # }
-        #print(response_message)
 
         # Send the result back to another queue
         ch.basic_publish(
