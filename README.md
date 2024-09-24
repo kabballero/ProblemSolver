@@ -52,6 +52,7 @@
 cd code
 docker-compose down  # to remove previous container/image data
 docker-compose up --build
+```
 
 Το main page του frontend είναι διαθέσιμο μέσω του localhost:3000.
 Rabbitmq management διαθέσιμο μέσω του localhost:15672 (credentials: guest, guest).
