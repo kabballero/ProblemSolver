@@ -5,8 +5,6 @@
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
-      <boolProp name="TestPlan.functional_mode">false</boolProp>
-      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
     </TestPlan>
     <hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="30 threads (Pan and Chris browse the frontend)">
@@ -441,8 +439,9 @@
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="10 threads (Chris submits problems)" enabled="true">
-        <intProp name="ThreadGroup.num_threads">10</intProp>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="4 threads (Chris submits problems)">
+        <stringProp name="TestPlan.comments">problems are submitted to rabbitmq queue</stringProp>
+        <intProp name="ThreadGroup.num_threads">4</intProp>
         <stringProp name="ThreadGroup.ramp_time">0.1</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -452,7 +451,7 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris submits problem 15 vehicles, 0 depot, 150 kms maxd (66d4a59f36655e0e5be917f7) " enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris submits problem 15 vehicles, 0 depot, 150 kms maxd (66d4a59f36655e0e5be917f7) ">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">3100</stringProp>
           <stringProp name="HTTPSampler.path">/submit</stringProp>
@@ -505,7 +504,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris submits problem 80 vehicles, 0 depot, 4 milion kms maxd (66d4a59f36655e0e5be917f7) " enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris submits problem 80 vehicles, 0 depot, 4 milion kms maxd (66d4a59f36655e0e5be917f7) ">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">3100</stringProp>
           <stringProp name="HTTPSampler.path">/submit</stringProp>
@@ -558,7 +557,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris submits problem 300 vehicles, 0 depot, 500 million kms maxd (66d4a59f36655e0e5be917f7) " enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris submits problem 300 vehicles, 0 depot, 500 million kms maxd (66d4a59f36655e0e5be917f7) ">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">3100</stringProp>
           <stringProp name="HTTPSampler.path">/submit</stringProp>
@@ -686,7 +685,7 @@
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="1 thread (Solution is fetched from rabbitmq and passed to problem 66f06b9901d671ebbf232bd6" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="1 thread (Solution is fetched from rabbitmq and passed to problem 66f06b9901d671ebbf232bd6">
         <stringProp name="TestPlan.comments">When run, queue is probably empty so &quot;No solution&quot; returns and is entered on problem parameters. Rabbitmq complicates this</stringProp>
         <intProp name="ThreadGroup.num_threads">1</intProp>
         <intProp name="ThreadGroup.ramp_time">1</intProp>
@@ -698,7 +697,7 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="solution for problem 663a371a81bda471feb05334" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="solution for problem 663a371a81bda471feb05334">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">3100</stringProp>
           <stringProp name="HTTPSampler.path">/solution/663a371a81bda471feb05334</stringProp>
@@ -749,7 +748,7 @@
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="50 threads (Pan and Chris log in)" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="50 threads (Pan and Chris log in)">
         <intProp name="ThreadGroup.num_threads">50</intProp>
         <stringProp name="ThreadGroup.ramp_time">0.1</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -913,7 +912,7 @@
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="200 threads (Pan and Chris log in)" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="200 threads (Pan and Chris log in)">
         <intProp name="ThreadGroup.num_threads">200</intProp>
         <stringProp name="ThreadGroup.ramp_time">0.01</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -1077,7 +1076,7 @@
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">
+      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
