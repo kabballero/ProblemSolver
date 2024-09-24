@@ -15,8 +15,8 @@
 Η υπηρεσία υλοποιεί την αρχιτεκτονική αρχή των microservices και γίνεται deployed μέσω Docker.
 
 Το backend της εφαρμογής μας είναι υλοποιημένο με NodeJS και Python (το κομμάτι του solver για το ORTool πρόβλημα). Για το frontend χρησιμοποιήσαμε React, ενώ η επικοινωνία μεταξύ των microservices γίνεται μέσω RESTful APIs ή RabbitMQ.
-
-##Φάκελοι
+***
+## Φάκελοι
 
 ### (1) ai-log
 Περιλαμβάνει καταγραφή της χρήσης εργαλειών ΑΙ στις φάσεις αρχιτεκτονική, σχεδίαση, κώδικας και deployment στα πλαίσια έρευνας του μαθήματος.
@@ -43,3 +43,13 @@
 
 ### (6) data
 Αρχεία εισόδου που αντιστοιχούν στο ORTool πρόβλημα Vehicle Routing Problem.
+
+***
+## Εκτέλεση του κώδικα
+```bash
+cd code
+docker-compose down  # to remove previous container/image data
+docker-compose up --build
+
+
+
