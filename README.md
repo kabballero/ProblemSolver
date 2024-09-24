@@ -14,7 +14,7 @@
 
 Η υπηρεσία υλοποιεί την αρχιτεκτονική αρχή των microservices και γίνεται deployed μέσω Docker.
 
-Το backend της εφαρμογής μας είναι υλοποιημένο με NodeJS και Python (το κομμάτι του solver για το ORTool πρόβλημα). Για το frontend χρησιμοποιήσαμε React, ενώ η επικοινωνία μεταξύ των microservices γίνεται μέσω RESTful APIs ή RabbitMQ.
+Το backend της εφαρμογής μας είναι υλοποιημένο με NodeJS και Python (το κομμάτι του solver για το ORTool πρόβλημα). Για το frontend χρησιμοποιήσαμε React, ενώ η επικοινωνία μεταξύ των microservices γίνεται μέσω RESTful APIs ή RabbitMQ. Χρησιμοποιήσαμε MongoDB για την αποθήκευση των δεδομένων.
 ***
 ## Φάκελοι
 
