@@ -46,10 +46,18 @@
 
 ***
 ## Εκτέλεση του κώδικα
+Αρχικά ξεκινάμε το Docker Engine και έπειτα εκτελούμε:
+
 ```bash
 cd code
 docker-compose down  # to remove previous container/image data
 docker-compose up --build
 
+Το main page του frontend είναι διαθέσιμο μέσω του localhost:3000.
+Rabbitmq management διαθέσιμο μέσω του localhost:15672 (credentials: guest, guest).
+
+Σημαντικό: Βεβαιωθείτε ότι τα scripts wait-for-it.sh είναι σε κωδικοποίηση LF και όχι σε CRLF. Μπορείτε να το ελέγξετε στις επιλογές του επεξεργαστή για το αρχείο. Για να διασφαλίσετε ότι η κωδικοποίηση του script δεν μετατρέπεται από LF σε CRLF κατά την εκτέλεση του git clone από Windows, τρέξτε την εντολή git config --global core.autocrlf false.
+
+Απαιτούνται δύο αλλαγές όταν εκτελείτε εκτός container, τοπικά (στα αρχεία solve_ms/main_program.py και submit_ms/submit.js).
 
 
