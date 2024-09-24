@@ -2,17 +2,15 @@
   
 ## TEAM 11
 
-Run like this:
+Στην παρούσα εργασία ζητείται η ανάπτυξη μιας δικτυακής εφαρμογής λογισμικού που θα παρέχεται ως υπηρεσία (SaaS), το solveMyProblem. Με δεδομένες τις απαιτήσεις και τα ζητούμενα use cases, μας ζητείται η υλοποίηση μιας εφαρμογής, μέσω της οποίας χρήστες θα υποβάλλουν (δυνητικά) απαιτητικά προβλήματα της βιβλιοθήκης ORTools. Δηλαδή θα προσφέρεται η υπηρεσία εκτέλεσης των προβλημάτων και, ανάλογα με τουσ απαιτούμενους πόρους για το εκάστοτε πρόβλημα, θα χρεώνεται ο χρήστης. 
+Ειδικότερα τα use cases είναι τα εξής: 
+* Διαχείριση χρηστών
+* Είσοδος με λογαριασμό Google
+* Αγορά credits
+* Υποβολή προβήματος προς επίλυση
+* Διαχείριση εκτέλεσης της επίλυσης υποβληθέντων προβλημάτων
+* Εμφάνιση λίστας προβλημάτων
+* Εμφάνιση στατιστικών στοιχείων για την εκτέλεση/επίλυση προβλημάτων
 
-Start the docker engine -> Move to /code directory -> Run docker-compose down (to remove previous container/image data) -> Run docker-compose up --build 
-
-Frontend shows up at localhost:3000
-
-Rabbitmq management is running on localhost:15672 (credentials: guest, guest).
-
-
-Important: Make sure the wait-for-it.sh scripts are in LF encoding and not in CRLF encoding. You can check it in the editor options of the file. 
-To make sure script encoding is not converted from LF to CRLF when running git clone from Windows, run git config --global core.autocrlf false.
-
-
-Two changes are necessary when running locally (on solve_ms/main_program.py and on submit_ms/submit.js)
+  ##Φάκελοι
+  
