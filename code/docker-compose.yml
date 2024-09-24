@@ -22,6 +22,8 @@ services:
       - pay_ms
       - submit_ms
       - history_ms
+      - statistics_ms
+      - admin_ms
 
   login_ms:
     build:
