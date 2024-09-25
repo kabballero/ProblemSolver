@@ -22,7 +22,9 @@
 Περιλαμβάνει καταγραφή της χρήσης εργαλειών ΑΙ στις φάσεις αρχιτεκτονική, σχεδίαση, κώδικας και deployment στα πλαίσια έρευνας του μαθήματος.
 
 ### (2) αρχιτεκτονική
-Περιλαμβάνει τα uml diagrams που αντιστοιχούν στην υλοποίησή μας, τα οποία σχεδιάσαμε μέσω του Visual Paradigm.
+Περιλαμβάνει τα uml diagrams (class, sequence, component, deployment) που αντιστοιχούν στην υλοποίησή μας, τα οποία σχεδιάσαμε μέσω του Visual Paradigm. Παρακάτω παραθέτουμε το Component Diagram:
+![image](https://github.com/user-attachments/assets/794e18cb-c36b-4a84-aac4-8fead6b9fb51)
+
 
 ### (3) code
 Περιλαμβάνει τον κώδικα των microservices της εφαρμογής, καθώς και τα deployment scripts. Ειδικότερα έχουμε τα εξής:
