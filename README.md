@@ -28,7 +28,7 @@
 Περιλαμβάνει τον κώδικα των microservices της εφαρμογής, καθώς και τα deployment scripts. Ειδικότερα έχουμε τα εξής:
 * admin_ms: λειτουργικότητα του admin
 * buy_ms: αγορά coins από τον χρήστη
-* frontend_ms: το συνολικό frontend της εφαρμογής
+* frontend_ms: το συνολικό frontend της εφαρμογής (δεν πρόκειται για microservice)
 * history_ms: λειτουργικότητα του ιστορικού
 * login_ms: είσοδος χρηστών
 * pay_ms: χρέωση του χρήστη
