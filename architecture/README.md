@@ -1,8 +1,6 @@
 # Documentation
 
-Περιέχεται:
-
-.vpp file που περιέχει:
+Visual Paradigm SolveME file που περιέχει:
 
 -Διαγράμα UML Class.
 
