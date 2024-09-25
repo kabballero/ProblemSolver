@@ -47,8 +47,10 @@
 γραφήματος στατιστικών, φόρτωση του ιστορικού υποβληθέντων προβλημάτων, πληρωμές με credits, αγορά credits, σύνδεση και υποβολή προβλημάτων. Στη συνολική
 αναφορά περιέχονται για τα επιμέρους test πληροφορίες σχετικά με το μέσο χρόνο, το throughput κλπ.
 
-Για την εκτέλεση του script είναι απαραίτητο το λογισμικό JMeter. Μπορεί να εκτελεστεί από το cli που προσφέρεται με το JMeter,
-με την εντολή $ jmeter -n -t solveME_stress_tests.jmx -l solveME_stress_tests.jtl
+Για την εκτέλεση του script είναι απαραίτητο το λογισμικό JMeter. Μπορεί να εκτελεστεί από το cli που προσφέρεται με το JMeter, με την εντολή 
+```bash
+$ jmeter -n -t solveME_stress_tests.jmx -l solveME_stress_tests.jtl
+```
 
 ### (6) data
 Αρχεία εισόδου που αντιστοιχούν στο ORTool πρόβλημα Vehicle Routing Problem.
