@@ -52,13 +52,13 @@ async function listenForSolutions() {
   return new Promise((resolve, reject) => {
     try{
       channel.consume(responseQueue, message => {
-          console.log("Received solution:", message.content.toString());
+          if(message==null){
+            resolve({solution: 'cancelled'});
+            return;
+          }
           const content = message.content.toString();
-          //console.log(content)
           channel.ack(message);
-          //console.log(content);
           resolve(content);
-          // Optionally close connection here if only expecting a single message
           channel.close();
       });}
       catch (error){reject (error)}

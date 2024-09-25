@@ -49,51 +49,50 @@ app.post('/submit', upload.single('locationsFile'), async (req, res) => {
     //console.log(problemData);  // Log the received data to verify
 
     try {
-         // Assume submit.sendProblemData is an async function you've defined elsewhere
-         await submit.sendProblemData(problemData);
-         try{
-             const newObjectId = new mongoose.Types.ObjectId();
-             const newProblemModel = new ProblemModel({
-                 _id: newObjectId,
-                 usersid: userID,
-                 problemsinput: problemData,
-                 solution: []
-             });
-             newProblemModel.save()
-                 .then(savedProblem => {
-                     console.log('Problem saved successfully:', savedProblem);
-                 })
-                 res.send(newObjectId);
-         } catch (error) {
-             console.error("Failed to stote problem:", error);
-             res.status(500).send("Failed to stote problem.");
-        } 
-    }catch (error) {
-            console.error("Failed to send problem data:", error);
-            res.status(500).send("Failed to submit problem.");
+        // Assume submit.sendProblemData is an async function you've defined elsewhere
+        await submit.sendProblemData(problemData);
+        try {
+            const newObjectId = new mongoose.Types.ObjectId();
+            const newProblemModel = new ProblemModel({
+                _id: newObjectId,
+                usersid: userID,
+                problemsinput: problemData,
+                solution: []
+            });
+            newProblemModel.save()
+                .then(savedProblem => {
+                    console.log('Problem saved successfully:', savedProblem);
+                })
+            res.send(newObjectId);
+        } catch (error) {
+            console.error("Failed to stote problem:", error);
+            res.status(500).send("Failed to stote problem.");
         }
+    } catch (error) {
+        console.error("Failed to send problem data:", error);
+        res.status(500).send("Failed to submit problem.");
+    }
 }
 );
 
 app.get('/solution/:problemsid', async (req, res) => {
     try {
-        //await submit.listenForSolutions();
         const message = await submit.listenForSolutions();
-        //console.log("Received message:", message);
-        //console.log(message)
-        const answer = JSON.parse(message);
-        const problemsId =new mongoose.Types.ObjectId(req.params.problemsid.slice(1,-1));
-        const problemData = await ProblemModel.find({_id: problemsId});
-        await ProblemModel.updateOne({ _id: problemsId }, {solution: answer });
-        //console.log(answer);
-        if(answer==='No solution found. Try different parameters.'){
-            res.status(403).send({message: 'No solution found. Try different parameters.'})
-        }else 
-            res.send(answer);
-        //console.log(answer);
+        if (message.solution !== 'cancelled') {
+            const answer = JSON.parse(message);
+            const problemsId = new mongoose.Types.ObjectId(req.params.problemsid.slice(1, -1));
+            const problemData = await ProblemModel.find({ _id: problemsId });
+            await ProblemModel.updateOne({ _id: problemsId }, { solution: answer });
+            //console.log(answer);
+            if (answer === 'No solution found. Try different parameters.') {
+                res.status(403).send({ message: 'No solution found. Try different parameters.' })
+            } else
+                res.send(answer);
+        }
     } catch (error) {
         console.error("Failed to start listening for solutions:", error);
-}})
+    }
+})
 
 app.get('/getsolution/:problemsid', async (req, res) => {
     try {
@@ -105,15 +104,26 @@ app.get('/getsolution/:problemsid', async (req, res) => {
     }
 })
 
-app.delete('/deleteQueue', async (req, res) => {
-   try{ 
-    await submit.sendDeleteSignal();
-    const result = await submit.deleteQueue1();
-    res.status(200).send({ message: `sent delete signal`, result });
-   }
-   catch(error){
-    res.status(500).send({ message: `Failed to sent delete signal`, error: error.message });
-   }
+app.delete('/deleteQueue/:problemsid', async (req, res) => {
+    try {
+        const problemsId = new mongoose.Types.ObjectId(req.params.problemsid.slice(1, -1));
+        const result = await ProblemModel.deleteOne({ _id: problemsId });
+        if (result.deletedCount > 0) {
+            console.log('Document deleted successfully');
+        } else {
+            console.log('No document found to delete');
+        }
+    } catch (err) {
+        console.error('Error deleting the document:', err);
+    }
+    try {
+        await submit.sendDeleteSignal();
+        const result = await submit.deleteQueue1();
+        res.status(200).send({ message: `sent delete signal`, result });
+    }
+    catch (error) {
+        res.status(500).send({ message: `Failed to sent delete signal`, error: error.message });
+    }
 });
 
 

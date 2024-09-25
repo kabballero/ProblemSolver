@@ -79,7 +79,7 @@ function Cars({ changenotification, getProblemsid, setProblemCounter, problemCou
 
     async function handleDelete(){
         try {
-            const response = await fetch('http://localhost:3100/deleteQueue', {
+            const response = await fetch(`http://localhost:3100/deleteQueue/${problemsid}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
