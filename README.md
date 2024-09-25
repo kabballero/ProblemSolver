@@ -23,7 +23,8 @@
 
 ### (2) αρχιτεκτονική
 Περιλαμβάνει τα uml diagrams (class, sequence, component, deployment) που αντιστοιχούν στην υλοποίησή μας, τα οποία σχεδιάσαμε μέσω του Visual Paradigm. Παρακάτω παραθέτουμε το Component Diagram:
-![image](https://github.com/user-attachments/assets/3187cc21-0252-407c-8aa7-de46d2db2faa)
+![image](https://github.com/user-attachments/assets/916c78da-edf1-42e9-9e93-5941d2483761)
+
 
 
 
