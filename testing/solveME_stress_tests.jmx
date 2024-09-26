@@ -7,7 +7,7 @@
       </elementProp>
     </TestPlan>
     <hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="30 threads (Pan and Chris browse the frontend)">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="50 threads (Pan, Chris  and Mr katakitchen browse the frontend)">
         <intProp name="ThreadGroup.num_threads">30</intProp>
         <intProp name="ThreadGroup.ramp_time">0</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -18,7 +18,7 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris buys credits (66d4a59f36655e0e5be917f7) " enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris buys credits (66d4a59f36655e0e5be917f7) ">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">9103</stringProp>
           <stringProp name="HTTPSampler.path">/sell/66d4a59f36655e0e5be917f7/2</stringProp>
@@ -31,10 +31,10 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pan buys credits (666047738313d30f2e0a8534) " enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pan buys credits (666047738313d30f2e0a8534) ">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">9103</stringProp>
-          <stringProp name="HTTPSampler.path">/sell/666047738313d30f2e0a8534/2</stringProp>
+          <stringProp name="HTTPSampler.path">/sell/666047738313d30f2e0a8534/200</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -44,10 +44,10 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris views history (66d4a59f36655e0e5be917f7)" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Mr Katakitchen views history (66ef2a824648cb0b7a93ae64)">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">3010</stringProp>
-          <stringProp name="HTTPSampler.path">/user_history/66d4a59f36655e0e5be917f7</stringProp>
+          <stringProp name="HTTPSampler.path">/user_history/66ef2a824648cb0b7a93ae64</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -57,7 +57,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pan views history (666047738313d30f2e0a8534) " enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pan views history (666047738313d30f2e0a8534) ">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">3010</stringProp>
           <stringProp name="HTTPSampler.path">/user_history/666047738313d30f2e0a8534</stringProp>
@@ -70,10 +70,10 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris views statistic table (66d4a59f36655e0e5be917f7)" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Mr Katakitchen views statistic table (66ef2a824648cb0b7a93ae64)">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">4000</stringProp>
-          <stringProp name="HTTPSampler.path">/problems_time/66d4a59f36655e0e5be917f7</stringProp>
+          <stringProp name="HTTPSampler.path">/problems_time/66ef2a824648cb0b7a93ae64</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -83,7 +83,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pan views statistics table (666047738313d30f2e0a8534) " enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pan views statistics table (666047738313d30f2e0a8534) ">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">4000</stringProp>
           <stringProp name="HTTPSampler.path">/problems_time/666047738313d30f2e0a8534</stringProp>
@@ -96,7 +96,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pan views statistics graph (666047738313d30f2e0a8534) " enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pan views statistics graph (666047738313d30f2e0a8534) ">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">4000</stringProp>
           <stringProp name="HTTPSampler.path">/user-solutions-chart/666047738313d30f2e0a8534</stringProp>
@@ -109,7 +109,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris views statistics graph (66d4a59f36655e0e5be917f7)" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris views statistics graph (66d4a59f36655e0e5be917f7)">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">4000</stringProp>
           <stringProp name="HTTPSampler.path">/user-solutions-chart/66d4a59f36655e0e5be917f7</stringProp>
@@ -122,7 +122,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris pays credits (66d4a59f36655e0e5be917f7) " enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris pays credits (66d4a59f36655e0e5be917f7) ">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">9000</stringProp>
           <stringProp name="HTTPSampler.path">/pay/66d4a59f36655e0e5be917f7/1</stringProp>
@@ -135,7 +135,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pan pays credits (666047738313d30f2e0a8534) " enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pan pays credits (666047738313d30f2e0a8534) ">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">9000</stringProp>
           <stringProp name="HTTPSampler.path">/pay/666047738313d30f2e0a8534/1</stringProp>
@@ -148,7 +148,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -185,7 +185,7 @@
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -223,8 +223,8 @@
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="100 threads (Pan and Chris browse the frontend)" enabled="true">
-        <intProp name="ThreadGroup.num_threads">100</intProp>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="500 threads (Pan, Chris  and Mr Katakitchen browse the frontend)">
+        <intProp name="ThreadGroup.num_threads">300</intProp>
         <stringProp name="ThreadGroup.ramp_time">0.01</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -247,7 +247,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pan buys credits (666047738313d30f2e0a8534) " enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pan buys credits (666047738313d30f2e0a8534) ">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">9103</stringProp>
           <stringProp name="HTTPSampler.path">/sell/666047738313d30f2e0a8534/2</stringProp>
@@ -260,10 +260,10 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris views history (66d4a59f36655e0e5be917f7)" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Mr Katakitchen views history (66ef2a824648cb0b7a93ae64)">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">3010</stringProp>
-          <stringProp name="HTTPSampler.path">/user_history/66d4a59f36655e0e5be917f7</stringProp>
+          <stringProp name="HTTPSampler.path">/user_history/66ef2a824648cb0b7a93ae64</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -273,7 +273,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pan views history (666047738313d30f2e0a8534) " enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pan views history (666047738313d30f2e0a8534) ">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">3010</stringProp>
           <stringProp name="HTTPSampler.path">/user_history/666047738313d30f2e0a8534</stringProp>
@@ -286,10 +286,10 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris views statistic table (66d4a59f36655e0e5be917f7)" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Mr Katakitchen views statistic table (66ef2a824648cb0b7a93ae64)">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">4000</stringProp>
-          <stringProp name="HTTPSampler.path">/problems_time/66d4a59f36655e0e5be917f7</stringProp>
+          <stringProp name="HTTPSampler.path">/problems_time/66ef2a824648cb0b7a93ae64</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -299,7 +299,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pan views statistics table (666047738313d30f2e0a8534) " enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pan views statistics table (666047738313d30f2e0a8534) ">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">4000</stringProp>
           <stringProp name="HTTPSampler.path">/problems_time/666047738313d30f2e0a8534</stringProp>
@@ -325,7 +325,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris views statistics graph (66d4a59f36655e0e5be917f7)" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris views statistics graph (66d4a59f36655e0e5be917f7)">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">4000</stringProp>
           <stringProp name="HTTPSampler.path">/user-solutions-chart/66d4a59f36655e0e5be917f7</stringProp>
@@ -364,7 +364,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -401,7 +401,7 @@
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -439,10 +439,10 @@
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="4 threads (Chris submits problems)">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="100 threads (Chris submits problems)">
         <stringProp name="TestPlan.comments">problems are submitted to rabbitmq queue</stringProp>
-        <intProp name="ThreadGroup.num_threads">4</intProp>
-        <stringProp name="ThreadGroup.ramp_time">0.1</stringProp>
+        <intProp name="ThreadGroup.num_threads">100</intProp>
+        <stringProp name="ThreadGroup.ramp_time">0.01</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
@@ -461,9 +461,9 @@
           <boolProp name="HTTPSampler.DO_MULTIPART_POST">true</boolProp>
           <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
             <collectionProp name="HTTPFileArgs.files">
-              <elementProp name="C:\Users\varth\Documents\ntua\tl2_final\saas2024-11\files\locations_20.json" elementType="HTTPFileArg">
+              <elementProp name="C:\Users\varth\Documents\ntua\tl2_final\saas2024-11\data\locations_20.json" elementType="HTTPFileArg">
                 <stringProp name="File.mimetype">application/json</stringProp>
-                <stringProp name="File.path">C:\Users\varth\Documents\ntua\tl2_final\saas2024-11\files\locations_20.json</stringProp>
+                <stringProp name="File.path">C:\Users\varth\Documents\ntua\tl2_final\saas2024-11\data\locations_20.json</stringProp>
                 <stringProp name="File.paramname">locationsFile</stringProp>
               </elementProp>
             </collectionProp>
@@ -514,9 +514,9 @@
           <boolProp name="HTTPSampler.DO_MULTIPART_POST">true</boolProp>
           <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
             <collectionProp name="HTTPFileArgs.files">
-              <elementProp name="C:\Users\varth\Documents\ntua\tl2_final\saas2024-11\files\locations_200.json" elementType="HTTPFileArg">
+              <elementProp name="C:\Users\varth\Documents\ntua\tl2_final\saas2024-11\data\locations_200.json" elementType="HTTPFileArg">
                 <stringProp name="File.mimetype">application/json</stringProp>
-                <stringProp name="File.path">C:\Users\varth\Documents\ntua\tl2_final\saas2024-11\files\locations_200.json</stringProp>
+                <stringProp name="File.path">C:\Users\varth\Documents\ntua\tl2_final\saas2024-11\data\locations_200.json</stringProp>
                 <stringProp name="File.paramname">locationsFile</stringProp>
               </elementProp>
             </collectionProp>
@@ -567,9 +567,9 @@
           <boolProp name="HTTPSampler.DO_MULTIPART_POST">true</boolProp>
           <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
             <collectionProp name="HTTPFileArgs.files">
-              <elementProp name="C:\Users\varth\Documents\ntua\tl2_final\saas2024-11\files\locations_1000.json" elementType="HTTPFileArg">
+              <elementProp name="C:\Users\varth\Documents\ntua\tl2_final\saas2024-11\data\locations_1000.json" elementType="HTTPFileArg">
                 <stringProp name="File.mimetype">application/json</stringProp>
-                <stringProp name="File.path">C:\Users\varth\Documents\ntua\tl2_final\saas2024-11\files\locations_1000.json</stringProp>
+                <stringProp name="File.path">C:\Users\varth\Documents\ntua\tl2_final\saas2024-11\data\locations_1000.json</stringProp>
                 <stringProp name="File.paramname">locationsFile</stringProp>
               </elementProp>
             </collectionProp>
@@ -610,7 +610,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -647,7 +647,7 @@
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -685,10 +685,10 @@
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="1 thread (Solution is fetched from rabbitmq and passed to problem 66f06b9901d671ebbf232bd6">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="1 thread (Solution is fetched from rabbitmq and passed to problem 66f06b9901d671ebbf232bd6" enabled="false">
         <stringProp name="TestPlan.comments">When run, queue is probably empty so &quot;No solution&quot; returns and is entered on problem parameters. Rabbitmq complicates this</stringProp>
         <intProp name="ThreadGroup.num_threads">1</intProp>
-        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">10</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
@@ -710,7 +710,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -759,7 +759,7 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager (json)" enabled="true">
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager (json)">
           <collectionProp name="HeaderManager.headers">
             <elementProp name="" elementType="Header">
               <stringProp name="Header.name">content-type</stringProp>
@@ -768,7 +768,7 @@
           </collectionProp>
         </HeaderManager>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris (66d4a59f36655e0e5be917f7) logs in" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris (66d4a59f36655e0e5be917f7) logs in">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">3001</stringProp>
           <stringProp name="HTTPSampler.path">/login</stringProp>
@@ -791,7 +791,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pan (66d4a59f36655e0e5be917f7) logs in" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pan (66d4a59f36655e0e5be917f7) logs in">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">3001</stringProp>
           <stringProp name="HTTPSampler.path">/login</stringProp>
@@ -814,7 +814,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Livai Garcia (?) logs in" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Livai Garcia (?) logs in">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">3001</stringProp>
           <stringProp name="HTTPSampler.path">/login</stringProp>
@@ -837,7 +837,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -874,7 +874,7 @@
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -912,8 +912,8 @@
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="200 threads (Pan and Chris log in)">
-        <intProp name="ThreadGroup.num_threads">200</intProp>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="500 threads (Pan and Chris log in)">
+        <intProp name="ThreadGroup.num_threads">500</intProp>
         <stringProp name="ThreadGroup.ramp_time">0.01</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -923,7 +923,7 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager (json)" enabled="true">
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager (json)">
           <collectionProp name="HeaderManager.headers">
             <elementProp name="" elementType="Header">
               <stringProp name="Header.name">content-type</stringProp>
@@ -932,7 +932,7 @@
           </collectionProp>
         </HeaderManager>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris (66d4a59f36655e0e5be917f7) logs in" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Chris (66d4a59f36655e0e5be917f7) logs in">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">3001</stringProp>
           <stringProp name="HTTPSampler.path">/login</stringProp>
@@ -955,7 +955,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pan (66d4a59f36655e0e5be917f7) logs in" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Pan (66d4a59f36655e0e5be917f7) logs in">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">3001</stringProp>
           <stringProp name="HTTPSampler.path">/login</stringProp>
@@ -978,7 +978,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Livai Garcia (?) logs in" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Livai Garcia (?) logs in">
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
           <stringProp name="HTTPSampler.port">3001</stringProp>
           <stringProp name="HTTPSampler.path">/login</stringProp>
@@ -1001,7 +1001,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -1038,7 +1038,7 @@
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
