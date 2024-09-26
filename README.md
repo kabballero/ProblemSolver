@@ -22,8 +22,9 @@
 Περιλαμβάνει καταγραφή της χρήσης εργαλειών ΑΙ στις φάσεις αρχιτεκτονική, σχεδίαση, κώδικα και deployment στα πλαίσια έρευνας του μαθήματος.
 
 ### (2) αρχιτεκτονική
-Περιλαμβάνει τα uml diagrams (class, sequence, component, deployment) που αντιστοιχούν στην υλοποίησή του solveME, τα οποία σχεδιάστηκαν μέσω του Visual Paradigm. Παρακάτω παραθέτουμε το Component Diagram:
-![image](https://github.com/user-attachments/assets/916c78da-edf1-42e9-9e93-5941d2483761)
+Περιλαμβάνει τα uml diagrams (class, sequence, component, deployment) που αντιστοιχούν στην υλοποίησή του solveME, τα οποία σχεδιάστηκαν μέσω του Visual Paradigm. Παρακάτω παραθέτουμε το Component Diagram ως μια συνολική εποπτεία της αρχιτεκτονικής του saas solveME:
+![image](https://github.com/user-attachments/assets/24609901-d505-4be1-b285-42f1b5f792bf)
+
 
 
 
